@@ -1,3 +1,25 @@
+<<<<<<< HEAD
 
 
 
+=======
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+/* $primary: #A8C2CA; */
+/* $secondary: #E5E5E5; */
+
+
+.App {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+h1, h2, h3, h4 {
+  color: #4a4a4a;
+  font-family: 'Montserrat';
+  padding: 0;
+  margin: 0;
+}
+
+>>>>>>> 544da7eff648653c67e98facdf771e6fbfc35c9f
