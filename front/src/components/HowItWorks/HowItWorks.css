@@ -1,0 +1,23 @@
+.works {
+    display: flex;
+    justify-content: space-evenly;
+   
+}
+
+.icon {
+    height: 70px;
+    width: 70px;
+}
+.width {
+    max-width: 300px;
+    padding: 20px;
+    
+}
+#kek {
+    text-align: start;
+    margin-left: 80px;
+}
+
+
+
+
