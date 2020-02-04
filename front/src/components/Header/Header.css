@@ -1,0 +1,43 @@
+@import '../../App.css';
+
+
+header {
+    background: #A8C2CA;
+    padding: 15px;
+}
+
+.header_navlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1 1 50%;
+    align-items: center;
+}
+
+.header_navlink {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-weight: 600;
+    padding: 7px;
+    border-bottom: 3px solid transparent;
+    transition: .5s;
+}
+
+.header_navlink:hover{
+    border-bottom: 3px solid #fff;
+    transition: .5s;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#hero {
+    flex: 1 1 50%;
+    align-self: center;
+}
+

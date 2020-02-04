@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './HowItWorks.css'
 
-
 class HowItWorks extends Component {
   render() {
     return( 
@@ -13,7 +12,8 @@ class HowItWorks extends Component {
       <div className="works">
 
         <div className="step">
-          <img className="icon" src="https://previews.123rf.com/images/dstarky/dstarky1709/dstarky170900364/87054795-premium-online-booking-icon-or-logo-in-line-style-high-quality-sign-and-symbol-on-a-white-background.jpg" alt=""></img>
+           <i class="fa fa-ticket" style={{fontSize: '32px'}} aria-hidden="true"></i>
+
           <h3>Book your Meshwar</h3>
           <p className="width" >Start by surfing through our events section in search for your desired trip. Once you have made your mind, register.</p>
         </div>
