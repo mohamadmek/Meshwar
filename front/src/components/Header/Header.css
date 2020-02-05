@@ -48,7 +48,7 @@ nav {
 @media screen and (max-width: 550px) {
     .header_navlist {
         flex-direction: column;
-        padding: 20px;
+       
     }
     
     #hero {
@@ -57,13 +57,17 @@ nav {
 
     nav {
         flex-direction: column;
+<<<<<<< HEAD
 
     }
 
     .elevate {
         animation-name: elevate 2s linear;
+=======
+>>>>>>> ad6ab8ce20eaeec2d59f7b2b5a227ae2c32588da
     }
 
+   
     .burger {
         width: fit-content;
         height: fit-content;
@@ -82,12 +86,13 @@ nav {
     }
 
     .header_navlist {
-        animation-name: show;
-        animation-duration: 1s;
-        transition: show 1s linear;
+        transform: translateY(-200px);
+        transition: 1s linear;
+        display: none;
     }
 
     .header_navlist li {
+<<<<<<< HEAD
         margin-bottom: 20px;
         animation-name: hide linear;
         animation-duration: 2s;
@@ -97,11 +102,21 @@ nav {
     .hide {
         opacity: 0;
         display: none;
+=======
+        margin-bottom: 10px;
+        
+    }
+
+    .hide {
+        display: block;
+        transform: translateY(0);
+        transition: all 1s linear;
+>>>>>>> ad6ab8ce20eaeec2d59f7b2b5a227ae2c32588da
     }
 
 }
 
-@keyframes  show {
+/* @keyframes  show {
     from { opacity: 0; transform: translateY(-500px);}
     to { opacity: 1; transform: translateY(0px);}
-}
+} */
