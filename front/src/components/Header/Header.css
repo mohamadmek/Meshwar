@@ -3,7 +3,6 @@
 
 header {
     background: #A8C2CA;
-    padding: 15px;
 }
 
 .header_navlist {
@@ -41,3 +40,27 @@ nav {
     align-self: center;
 }
 
+
+@media all and (max-width: 490px) {
+    nav {
+        flex-direction: column;
+    }
+    .header_navlist {
+        flex-direction: column;
+        opacity: 0;
+    }
+    .header_navlist_active {
+        opacity: 1;
+    }
+
+    .line {
+        background: #4a4a4a;
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 3rem;
+        height: .3rem;
+        margin-bottom: 5px;
+    }
+}
