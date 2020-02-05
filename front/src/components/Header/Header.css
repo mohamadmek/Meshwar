@@ -81,8 +81,6 @@ nav {
 
     .header_navlist li {
         margin-bottom: 20px;
-        animation-name: hide linear;
-        animation-duration: 2s;
     }
 
     .hide {
