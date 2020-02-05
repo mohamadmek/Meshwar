@@ -4,11 +4,13 @@ import Header from './components/Header/Header';
 import EventCard from './components/UpComingEvents/EventCard/EventCard';
 import Footer from './components/Footer/Footer';
 
+
 function App() {
   return (
-    <div>
-      <Header />
-      <Footer />
+    <div className="App">
+      <Header/>
+      <HowItWorks />
+      
     </div>
   );
 }
