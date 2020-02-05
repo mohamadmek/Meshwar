@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
 import './EventCard.css'
 import styled from 'styled-components'
-
+import Button from '../Button/Button'
+import Article from '../Article/Article'
 const EventCard = () => {
-  const Button = styled.button
-  `
-  padding: 10px 20px;
-  background-color: #A8C2CA;
-  margin-top: 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  &:hover {
-    transition: all 0.2s linear;
-    border-color: #A8C2CA;
-    color: #fff;
-  }
-  `;
+  
     return (
-      <article>
+      <Article>
       <div className="EventCard_image">
         <div className="EventCard_title">-Road of Death</div>
       </div>
@@ -33,7 +21,7 @@ const EventCard = () => {
         <Button className="EventCard_info">More Info</Button>
         <Button>Register</Button>
       </div>
-     </article>
+     </Article>
     )
       
   }
