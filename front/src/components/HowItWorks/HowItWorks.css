@@ -1,6 +1,7 @@
 .howitworks_works {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
    
 }
 
@@ -8,7 +9,7 @@
 
 .howitworks_width {
     max-width: 300px;
-    padding: 20px;
+    padding: 6px;
     
 }
 #howitworks_kek {
@@ -20,7 +21,7 @@
 
 .howitworks_step {
 text-align: center;
-padding: 60px;
+padding: 10px;
 }
 .howitworks_icon {
     padding: 30px;
@@ -29,3 +30,4 @@ padding: 60px;
 .howitworks_spaceing {
    margin-bottom: 60px;
 }
+

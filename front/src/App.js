@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import HowItWorks from './components/HowItWorks/HowItWorks';
 import Header from './components/Header/Header';
+import GalleryContainer from './components/GalleryContainer/GalleryContainer';
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
       <Header/>
       <HowItWorks />
+      <GalleryContainer />
       
     </div>
   );
