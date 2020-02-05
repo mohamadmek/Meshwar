@@ -1,33 +1,31 @@
-.works {
+.howitworks_works {
     display: flex;
     justify-content: space-evenly;
    
 }
 
-.icon {
-    height: 70px;
-    width: 70px;
-}
-.width {
+
+
+.howitworks_width {
     max-width: 300px;
     padding: 20px;
     
 }
-#kek {
+#howitworks_kek {
     text-align: start;
     margin-left: 60px;
     padding: 30px;
 }
 
 
-.step {
+.howitworks_step {
 text-align: center;
 padding: 60px;
 }
-.icon {
+.howitworks_icon {
     padding: 30px;
 }
 
-.spaceing {
+.howitworks_spaceing {
    margin-bottom: 60px;
 }
