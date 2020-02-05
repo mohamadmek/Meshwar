@@ -4,17 +4,15 @@ import './Header.css';
 class Header extends Component {
   state={
     hide:false,
-    status: "header_navlist",
-    nav: "elevate"
+    status: "header_navlist"
   }
 
   handleClick = ()=>{
     this.setState({ hide: !this.state.hide });
-    console.log(this.state.hide);
     if(this.state.hide) {
-      this.setState({status: "header_navlist", nav: this.state.nav});
+      this.setState({status: "header_navlist"});
     } else {
-      this.setState({status: "header_navlist hide", nav: ""});
+      this.setState({status: "header_navlist hide"});
     }
   }
 
@@ -27,7 +25,7 @@ class Header extends Component {
           <span className="line"></span>
           <span className="line"></span>
         </div>
-        <nav className={this.state.nav}>
+        <nav>
           <div id="hero">
             <h1>MESHWAR</h1>
           </div>
