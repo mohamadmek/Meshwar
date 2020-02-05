@@ -57,11 +57,11 @@ nav {
 
     nav {
         flex-direction: column;
-        
+
     }
 
     .elevate {
-
+        animation-name: elevate 2s linear;
     }
 
     .burger {
@@ -88,15 +88,15 @@ nav {
     }
 
     .header_navlist li {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         animation-name: hide linear;
         animation-duration: 2s;
+        /* width: 100%; */
     }
 
     .hide {
         opacity: 0;
-        transform: translateY(-200px);
-        transition: all 1s linear;
+        display: none;
     }
 
 }
