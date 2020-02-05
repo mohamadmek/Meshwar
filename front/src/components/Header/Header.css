@@ -57,14 +57,11 @@ nav {
 
     nav {
         flex-direction: column;
-<<<<<<< HEAD
 
     }
 
     .elevate {
         animation-name: elevate 2s linear;
-=======
->>>>>>> ad6ab8ce20eaeec2d59f7b2b5a227ae2c32588da
     }
 
    
@@ -92,7 +89,6 @@ nav {
     }
 
     .header_navlist li {
-<<<<<<< HEAD
         margin-bottom: 20px;
         animation-name: hide linear;
         animation-duration: 2s;
@@ -102,16 +98,6 @@ nav {
     .hide {
         opacity: 0;
         display: none;
-=======
-        margin-bottom: 10px;
-        
-    }
-
-    .hide {
-        display: block;
-        transform: translateY(0);
-        transition: all 1s linear;
->>>>>>> ad6ab8ce20eaeec2d59f7b2b5a227ae2c32588da
     }
 
 }
