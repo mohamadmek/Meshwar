@@ -1,0 +1,49 @@
+@import '../../App.css';
+
+footer {
+    z-index: -2;
+    background: #A8C2CA;
+    height: 250px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer_wrapper {
+    padding: 100px 40px 0 40px;
+    display: flex;
+}
+
+.footer_h1 {
+    flex: 1 1 50%;
+}
+
+.footer_wrapper ul {
+    flex: 1 1 50%;
+    text-align: right;
+}
+
+.footer_wrapper li {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.footer_social-link {
+    width: 50px;
+    height: 50px;
+}
+
+.footer_parag {
+    text-align: center;
+    font-weight: 600;
+    margin: 40px 0 0 0;
+}
+
+.footer_bg {
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    opacity: .5;
+    width: 100vw;
+}
