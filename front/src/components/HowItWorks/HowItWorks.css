@@ -15,9 +15,19 @@
 }
 #kek {
     text-align: start;
-    margin-left: 80px;
+    margin-left: 60px;
+    padding: 30px;
 }
 
 
+.step {
+text-align: center;
+padding: 60px;
+}
+.icon {
+    padding: 30px;
+}
 
-
+.spaceing {
+   margin-bottom: 60px;
+}

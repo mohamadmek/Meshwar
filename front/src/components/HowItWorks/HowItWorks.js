@@ -12,20 +12,22 @@ class HowItWorks extends Component {
       <div className="works">
 
         <div className="step">
-           <i class="fa fa-ticket" style={{fontSize: '32px'}} aria-hidden="true"></i>
+           <i className="fa fa-ticket" style={{fontSize: '32px'}} aria-hidden="true"></i>
 
           <h3>Book your Meshwar</h3>
           <p className="width" >Start by surfing through our events section in search for your desired trip. Once you have made your mind, register.</p>
         </div>
+        
 
         
         <div className="step">
-          <img className="icon" src="https://cdn1.iconfinder.com/data/icons/furniture-filled-1/64/Furniture-Filled_Couch-512.png" alt=""></img>
-          <h3>Sit back</h3>
+        <i className="fa fa-child"  style={{fontSize: '32px'}} aria-hidden="true"></i>
+
+          <h3> Sit back </h3>
           <p className="width">Once you have completed the registration and read all the requirments, sit back and relax till the day of the trip awakens.</p>
         </div>
         <div className="step">
-          <img className="icon" src="https://cdn4.iconfinder.com/data/icons/travel-ii-filled-line/2048/5501_-_Van-512.png" alt=""></img>
+        <i class="fa fa-bus" style={{fontSize: '32px'}} aria-hidden="true"></i>
           <h3>Enoy your Meshwar</h3>
           <p className="width">Once the day finnaly comes, meet at the appointed destination and prepare for an adventure full of energy and excitment </p>
         </div>
