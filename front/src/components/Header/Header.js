@@ -27,7 +27,7 @@ class Header extends Component {
         </div>
         <nav>
           <div id="hero">
-            <h1>MESHWAR</h1>
+            <Link to="/home"><h1>MESHWAR</h1></Link>
           </div>
           <ul className={this.state.status}>  
             <li><Link className="header_navlink" to="/events">Events</Link></li>
