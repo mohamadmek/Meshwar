@@ -6,9 +6,10 @@ import Article from '../Article/Article'
 const EventCard = () => {
   
     return (
-      <Article>
+      <Article className="EventSection_m_mt10">
       <div className="EventCard_image">
-        <div className="EventCard_title">-Road of Death</div>
+        <div className="overlay"></div>
+        <div className="EventCard_title">Road of Death</div>
       </div>
       <div className="EventCard_container">
         <div><i className="fa fa-map-marker EventCard_marker"></i>Tripoli| Bcahrre| Cedars Of God</div>

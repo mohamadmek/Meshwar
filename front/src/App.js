@@ -1,17 +1,21 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
-import Slider from './components/Slider/Slider';
-import EventCard from './components/UpComingEvents/EventCard/EventCard';
-import Footer from './components/Footer/Footer';
 import Home from './pages/HomePage/HomePage';
-
+import Events from './pages/EventsPage/EventsPage'
+import Gallery from './pages/GalleryPage/GalleryPage'
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 function App() {
   return (
-    <div className="App">
-      <Home />
-      
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/events" component={Events} />
+          <Route path="/gallery" component={Gallery} />
+        </Switch>
+      </div>
+    </Router>
+    
   );
 }
 

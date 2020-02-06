@@ -3,17 +3,26 @@
   position: absolute;
   right: 15px;
   bottom: 20px;
-  color: #ccc;
+  color: #fff;
   text-transform: uppercase;
+  font-weight: bold;
 }
 .EventCard_image {
   position: relative;
-  background: url('../../../assets/images/unnamed.jpg')no-repeat center center/cover;
+  background: url('../../../assets/images/faraya.jpg')no-repeat center center/cover;
   width: 100%;
   height: 200px;
   border-top-right-radius: 30px;
   border-bottom: 6px solid #A8C2CA;
-  opacity: 0.8;
+}
+
+.overlay {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  background: rgba(0,0,0,.5);
 }
 
 .EventCard_container {
@@ -47,4 +56,10 @@
 
 .EventCard_info {
   margin-right: 18px;
+}
+
+@media all and (max-width: 752px) {
+  .EventSection_m_mt10 {
+    margin-top: 10px;
+  }
 }

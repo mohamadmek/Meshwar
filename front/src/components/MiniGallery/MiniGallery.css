@@ -1,0 +1,46 @@
+.MiniGallery_section {
+  display: flex;
+  margin-top: 40px;
+}
+
+.MiniGallery_img1 {
+  background: url('../../assets/images/unnamed.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+.MiniGallery_img2 {
+  background: url('../../assets/images/1.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+.MiniGallery_img3 {
+  background: url('../../assets/images/2.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+.MiniGallery_img4 {
+  background: url('../../assets/images/3.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+.MiniGallery_img5 {
+  background: url('../../assets/images/4.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+.MiniGallery_img6 {
+  background: url('../../assets/images/5.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+.MiniGallery_img7 {
+  background: url('../../assets/images/6.jpg')no-repeat center center/cover;
+  width: 200px;
+  height: 150px;
+}
+
+@media all and (max-width: 750px) {
+  .MiniGallery_section {
+    display: none;
+  }
+}
