@@ -10,4 +10,5 @@ width: 33.3334%;
   padding-bottom: 20px;
   box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4);
   border-bottom: 6px solid #A8C2CA;
+  margin-bottom: 30px;
 `
