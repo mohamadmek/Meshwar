@@ -3,20 +3,29 @@ import './EventCard.css'
 import styled from 'styled-components'
 import Button from '../Button/Button'
 import Article from '../Article/Article'
-const EventCard = () => {
-  
+
+
+const EventCard = (props) => {
     return (
-      <Article>
-      <div className="EventCard_image">
-        <div className="EventCard_title">-Road of Death</div>
+      <Article className="EventSection_m_mt10">
+      <div style={{
+        background: `url(${props.src}) no-repeat center center/cover`,
+        position: "relative",
+        width: "100%",
+        height: "200px",
+        borderTopRightRadius: "30px",
+        borderBottom: "6px solid #A8C2CA"
+      }}> 
+        <div className="overlay"></div>
+        <div className="EventCard_title">{props.title}</div>
       </div>
       <div className="EventCard_container">
-        <div><i className="fa fa-map-marker EventCard_marker"></i>Tripoli| Bcahrre| Cedars Of God</div>
-        <div className="EventCard_date"><i className="fa fa-calendar EventCard_calendar"></i> Feb 9,2020 | 8AM-6PM</div>
+        <div><i className="fa fa-map-marker EventCard_marker"></i>{props.location}</div>
+        <div className="EventCard_date"><i className="fa fa-calendar EventCard_calendar"></i>{props.date}</div>
         <div className="EventCard_flex">
-          <div><i className="fa fa-users EventCard_users"></i> Seats remaining:7
+          <div><i className="fa fa-users EventCard_users"></i>Seats remaining: {props.remainingSeats}
           |</div>
-          <div>Price 28$</div>
+          <div>Price {props.price}</div>
         </div>
         <Button className="EventCard_info" data-toggle="modal" data-target="#moreInfoModal">More Info</Button>
         <Button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
@@ -86,7 +95,7 @@ const EventCard = () => {
               </button>
             </div>
             <div class="modal-body">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero, excepturi accusantium aut doloremque iusto autem alias quibusdam fuga architecto error recusandae dolor, facilis saepe ducimus dolores! Dolores obcaecati molestias enim!
+              {props.description}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

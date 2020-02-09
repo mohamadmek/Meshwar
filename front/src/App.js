@@ -1,16 +1,24 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/HomePage/HomePage';
-import Header from './components/Header/Header';
-import GalleryContainer from './components/GalleryContainer/GalleryContainer';
-import Footer from './components/Footer/Footer';
-import EventsPage from './pages/EventsPage/EventsPage';
-
+import Events from './pages/EventsPage/EventsPage'
+import Gallery from './pages/GalleryPage/GalleryPage'
+import ContactPage from './pages/ContactUsPage/ContactUsPage'
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 function App() {
   return (
-    <div className="App">
-      <EventsPage />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/home" exact component={Home} />
+          <Route path="/events" component={Events} />
+          <Route path="/gallery" component={Gallery} />
+          <Route path="/contact" component={ContactPage} />
+        </Switch>
+      </div>
+    </Router>
+    
   );
 }
 

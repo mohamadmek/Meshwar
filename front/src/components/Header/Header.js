@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
-
+import {Link} from 'react-router-dom';
 class Header extends Component {
   state={
     hide:false,
@@ -27,12 +27,12 @@ class Header extends Component {
         </div>
         <nav>
           <div id="hero">
-            <h1>MESHWAR</h1>
+            <Link to="/home" id="subHero"><h1 className="header_logo">MESHWAR</h1></Link>
           </div>
           <ul className={this.state.status}>  
-            <li><a className="header_navlink" href="#">Events</a></li>
-            <li><a className="header_navlink" href="#">Gallery</a></li>
-            <li><a className="header_navlink" href="#">Contact Us</a></li>
+            <li><Link className="header_navlink" to="/events">Events</Link></li>
+            <li><Link className="header_navlink" to="/gallery">Gallery</Link></li>
+            <li><Link className="header_navlink" to="/contact">Contact Us</Link></li>
           </ul>
         </nav>
       </header> 

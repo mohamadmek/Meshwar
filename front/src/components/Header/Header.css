@@ -42,8 +42,18 @@ nav {
 #hero {
     flex: 1 1 50%;
     align-self: center;
+    text-decoration: none;
+}
+#subHero:hover {
+    text-decoration: none !important;
 }
 
+.header_logo {
+    text-decoration: none;
+}
+.header_logo:hover {
+    text-decoration: none;
+}
 /* Mobile View */
 @media screen and (max-width: 580px) {
     .header_navlist {
