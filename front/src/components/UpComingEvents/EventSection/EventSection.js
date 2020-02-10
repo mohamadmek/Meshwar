@@ -16,7 +16,7 @@ const EventSection = (props) => {
         <h3 style={{ paddingBottom: "20px", borderBottom: "2px solid #A8C2CA",textAlign: "center",width:"300px", margin: "0 auto", marginTop: "30px" }}>Upcoming Events</h3>
         <section className="EventSection_Wrapper">
             
-           {
+           { props.events &&
           props.events.map((event, index) => {
             if(index <= 2) {
                return <EventCard

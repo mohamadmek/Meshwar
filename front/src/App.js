@@ -58,7 +58,7 @@ class App extends React.Component {
         date: "July 28, 2020 | 12AM - 6PM",
         price: "$25",
         remainingSeats: 11,
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium deleniti suscipit nobis sunt? Fuga reiciendis nisi velit quia?',
+        description: 'hello anthony',
         imageSource: roccaMarina 
       },
       {
@@ -67,7 +67,7 @@ class App extends React.Component {
         date: "July 28, 2020 | 11AM - 11PM",
         price: "$40",
         remainingSeats: 16,
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium deleniti suscipit nobis sunt? Fuga reiciendis nisi velit quia?',
+        description: 'hello samar',
         imageSource: bbq 
       }
     ]
@@ -77,7 +77,7 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events}/>}component={Home} />
             <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events}/>} />
             <Route path="/events" render={(props) => <Events {...props} events={this.state.events} />}
             />

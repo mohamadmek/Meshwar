@@ -6,6 +6,7 @@ import HowItWorks from '../../components/HowItWorks/HowItWorks';
 import EventSection from '../../components/UpComingEvents/EventSection/EventSection'
 import MiniGallery from '../../components/MiniGallery/MiniGallery'
 const HomePage = (props) => {
+    console.log(props);
     return (
       <main className="wrapper">
         <Header />
