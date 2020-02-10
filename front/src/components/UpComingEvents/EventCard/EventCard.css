@@ -64,3 +64,29 @@
     margin-top: 10px;
   }
 }
+
+.EventCard_moreInfo {
+  color: #4a4a4a;
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: fit-content;
+  background: #A8C2CA;
+  text-align: center;
+  z-index: 5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.EventCard_exitIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  top: 15px;
+  right: 15px;
+}

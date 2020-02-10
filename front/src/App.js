@@ -22,8 +22,8 @@ class App extends React.Component {
         date: "Feb 9, 2020 | 8AM - 6PM",
         price: "$25",
         remainingSeats: 10,
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium deleniti suscipit nobis sunt? Fuga reiciendis nisi velit quia?',
-        imageSource: roadOfDeath
+        description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam asperiores laboriosam quidem harum iusto saepe.',
+        imageSource: roadOfDeath,
       },
       {
         title: "Faraya",
@@ -32,7 +32,7 @@ class App extends React.Component {
         price: "$20",
         remainingSeats: 15,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium deleniti suscipit nobis sunt? Fuga reiciendis nisi velit quia?',
-        imageSource: faraya 
+        imageSource: faraya,
       },
       {
         title: "Tripoli",
@@ -41,7 +41,7 @@ class App extends React.Component {
         price: "$22",
         remainingSeats: 18,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium deleniti suscipit nobis sunt? Fuga reiciendis nisi velit quia?',
-        imageSource: tripoli 
+        imageSource: tripoli,
       },
       {
         title: "Camping by the fire",
@@ -50,7 +50,7 @@ class App extends React.Component {
         price: "$30",
         remainingSeats: 5,
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusantium deleniti suscipit nobis sunt? Fuga reiciendis nisi velit quia?',
-        imageSource: camping 
+        imageSource: camping,
       },
       {
         title: "Fun in the Sun",
@@ -58,8 +58,8 @@ class App extends React.Component {
         date: "July 28, 2020 | 12AM - 6PM",
         price: "$25",
         remainingSeats: 11,
-        description: 'hello anthony',
-        imageSource: roccaMarina 
+        description: '',
+        imageSource: roccaMarina,
       },
       {
         title: "Bbq Fest",
@@ -67,21 +67,23 @@ class App extends React.Component {
         date: "July 28, 2020 | 11AM - 11PM",
         price: "$40",
         remainingSeats: 16,
-        description: 'hello samar',
-        imageSource: bbq 
+        description: 'Some random stuff',
+        imageSource: bbq,
       }
-    ]
+    ],
+    gallery: [faraya, tripoli, roccaMarina, roadOfDeath, camping, bbq]
   }
+
   render() {
     return (
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events}/>}component={Home} />
+            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events}/>}/>
             <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events}/>} />
             <Route path="/events" render={(props) => <Events {...props} events={this.state.events} />}
             />
-            <Route path="/gallery" component={Gallery} />
+            <Route path="/gallery" render={(props) => <Gallery {...props} />} />
             <Route path="/contact" component={ContactPage} />
           </Switch>
         </div>

@@ -7,7 +7,7 @@ class GalleryPage extends Component {
     return (
       <>
       <Header />
-      <GalleryContainer />
+      <GalleryContainer gallery={this.props && this.props.gallery}/>
       <Footer />
       </>
     )
