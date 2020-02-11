@@ -83,7 +83,7 @@ class App extends React.Component {
             <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events}/>} />
             <Route path="/events" render={(props) => <Events {...props} events={this.state.events} />}
             />
-            <Route path="/gallery" render={(props) => <Gallery {...props} />} />
+            <Route path="/gallery" render={(props) => <Gallery {...props} gallery={this.state.gallery}/>} />
             <Route path="/contact" component={ContactPage} />
           </Switch>
         </div>

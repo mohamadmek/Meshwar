@@ -8,27 +8,64 @@ import exit from '../../../assets/icons/exit.svg';
 
 class EventCard extends Component {
   state = {
-    show: false
+    showMoreInfo: false,
+    showRegister: false
   }
 
   toggleMoreInfo = () => {
-    this.setState({show: !this.state.show});
-    console.log(this.state.show);
+    this.setState({showMoreInfo: !this.state.showMoreInfo});
+    console.log(this.state.showMoreInfo);
   }
 
+  toggleRegister = () => {
+    this.setState({showRegister: !this.state.showRegister});
+  }
 
   render() {
     const {src, title, description, remainingSeats, date, location, price} = this.props;
     let moreInfo = null;
+    let register = null;
 
 
-    if(this.state.show) {
+    if(this.state.showMoreInfo) {
       moreInfo = (
         <div className="EventCard_moreInfo">
           <img onClick={this.toggleMoreInfo} className="EventCard_exitIcon" src={exit} />
           <h3>Trip Info ({title})</h3>
           <hr style={{height: "2px", background: "#fff"}} />
           <p style={{textAlign: "left", marginTop: "30px"}}>{description}</p>
+        </div>
+      )
+    }
+
+    if(this.state.showRegister) {
+      register = (
+        <div className="EventCard_register">
+          <img onClick={this.toggleRegister} className="EventCard_exitIcon" src={exit} />
+          <h3>Register for {title}</h3>
+          <form>
+            <div>
+              <label htmlFor="name">Name</label>
+              <input type="text" id="name" placeholder="Your name..." required/>
+            </div>
+            <div>
+              <label htmlFor="age">Age</label>
+              <input type="number" id="age" placeholder="Your age..." />
+            </div>
+            <div>
+              <label htmlFor="mobile">Mobile</label>
+              <input type="text" id="mobile" placeholder="Your mobile..." required/>
+            </div>
+            <div>
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" placeholder="Your email..."/>
+            </div>
+            <div>
+              <label htmlFor="address">Address</label>
+              <input type="text" id="address" placeholder="Your Address..."/>
+            </div>
+            <button type="submit">Register</button>
+          </form>
         </div>
       )
     }
@@ -57,10 +94,11 @@ class EventCard extends Component {
           <div>Price {price}</div>
         </div>
         <Button onClick={this.toggleMoreInfo} className="EventCard_info">More Info</Button>
-        <Button>Register</Button>
+        <Button onClick={this.toggleRegister}>Register</Button>
       </div>
      </Article>
         {moreInfo}
+        {register}
     </>
     )
   }
