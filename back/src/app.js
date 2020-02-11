@@ -18,7 +18,6 @@ app.use(cors()); // allows cross domain requests
 app.use(express.json()); // allows POST requests with JSON
 app.use(express.urlencoded({ extended: false })); // allows POST requests with GET-like parameters
 app.use(cookieParser()); // Parses cookies
-app.use(favicon(path.join(__dirname, '../public', 'favicon.ico'))) // <-- location of favicon
 app.use(express.static(path.join(__dirname, '../public'))); // <-- location of public dir
 
 app.use(session({ // handles sessions
