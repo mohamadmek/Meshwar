@@ -3,9 +3,9 @@ import EventCard from '../EventCard/EventCard'
 import './EventSection.css'
 import Button from '../../UpComingEvents/Button/Button'
 import {Link} from "react-router-dom"
-import faraya from '../../../assets/images/faraya.jpg';
-import roadOfDeath from '../../../assets/images/road-of-death.jpg';
-import tripoli from '../../../assets/images/tripoli.jpg';
+// import faraya from '../../../assets/images/faraya.jpg';
+// import roadOfDeath from '../../../assets/images/road-of-death.jpg';
+// import tripoli from '../../../assets/images/tripoli.jpg';
 
 
   

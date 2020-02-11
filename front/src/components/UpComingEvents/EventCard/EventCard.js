@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './EventCard.css'
-import styled from 'styled-components'
+import './EventCard.css';
 import Button from '../Button/Button'
 import Article from '../Article/Article'
 import exit from '../../../assets/icons/exit.svg';
@@ -25,7 +24,7 @@ class EventCard extends Component {
     if(this.state.show) {
       moreInfo = (
         <div className="EventCard_moreInfo">
-          <img onClick={this.toggleMoreInfo} className="EventCard_exitIcon" src={exit} />
+          <img onClick={this.toggleMoreInfo} className="EventCard_exitIcon" src={exit} alt="mre"/>
           <h3>Trip Info ({title})</h3>
           <hr style={{height: "2px", background: "#fff"}} />
           <p style={{textAlign: "left", marginTop: "30px"}}>{description}</p>
