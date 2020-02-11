@@ -12,7 +12,6 @@ class EventCard extends Component {
 
   toggleMoreInfo = () => {
     this.setState({show: !this.state.show});
-    console.log(this.state.show);
   }
 
 
@@ -63,6 +62,7 @@ class EventCard extends Component {
     </>
     )
   }
- }
+}
+  export default EventCard;
 
-export default EventCard;
+ 
