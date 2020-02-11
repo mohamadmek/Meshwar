@@ -1,5 +1,6 @@
 .MiniGallery_section {
   display: flex;
+  flex: 1 1 20%;
   margin-top: 40px;
 }
 

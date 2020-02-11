@@ -3,7 +3,7 @@ import './Footer.css';
 import FbIcon from '../../assets/icons/facebook-square-brands.svg'
 import InstaIcon from '../../assets/icons/insta-icon.svg';
 import TwitterIcon from '../../assets/icons/twitter-icon.svg';
-import footerBg from '../../assets/images/footer-background.png';
+// import footerBg from '../../assets/images/footer-background.png';
 
 class Footer extends Component {
   render() {

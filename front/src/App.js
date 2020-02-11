@@ -74,13 +74,15 @@ class App extends React.Component {
     gallery: [faraya, tripoli, roccaMarina, roadOfDeath, camping, bbq]
   }
 
+   
+  
   render() {
     return (
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events}/>}/>
-            <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events}/>} />
+            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events} miniGallery={this.state.gallery}/>}/>
+            <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events} miniGallery={this.state.gallery}/>} />
             <Route path="/events" render={(props) => <Events {...props} events={this.state.events} />}
             />
             <Route path="/gallery" render={(props) => <Gallery {...props} gallery={this.state.gallery}/>} />

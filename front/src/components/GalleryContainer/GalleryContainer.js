@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './GalleryContainer.css';
 import GalleryPic from './GalleryPic/GalleryPic'
 const GalleryContainer = (props) => {
@@ -7,6 +7,7 @@ const GalleryContainer = (props) => {
         <h1 id="gallery_h1">Our Photos</h1>
       <div className="gallery_container">
         {props.gallery && props.gallery.map(image => {
+          console.log(image)
           return <GalleryPic src={image} />
         })}        
       </div>
