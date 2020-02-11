@@ -4,7 +4,7 @@ import session from 'express-session' // parses sessions
 import favicon from 'serve-favicon' // serves favicon
 import cors from 'cors' // allows cross-domain requests
 import createError from 'http-errors' // better JS errors
-import path from 'path'
+import path from 'path';
 
 const app = express(); // create a new app
 
@@ -28,5 +28,4 @@ app.use(session({ // handles sessions
 }))
 
 
-export default app;
-
+export default app; 
