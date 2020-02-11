@@ -65,7 +65,8 @@
   }
 }
 
-.EventCard_moreInfo {
+.EventCard_moreInfo,
+.EventCard_register {
   color: #4a4a4a;
   display: block;
   position: fixed;
@@ -79,6 +80,25 @@
   z-index: 5;
   padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 7px 10px #555;
+}
+
+
+
+.EventCard_register label {
+  display: block;
+}
+
+.EventCard_register input {
+  margin-bottom: 10px;
+}
+
+.EventCard_register button {
+  margin-top: 10px;
+  padding: 7px;
+  border-radius: 10px;
+  width: 40%;
+  font-weight: bold;
 }
 
 .EventCard_exitIcon {
