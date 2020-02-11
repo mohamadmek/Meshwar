@@ -4,7 +4,7 @@ import session from 'express-session' // parses sessions
 import favicon from 'serve-favicon' // serves favicon
 import cors from 'cors' // allows cross-domain requests
 import createError from 'http-errors' // better JS errors
-import path from 'path'
+import path from 'path';
 
 
 const app = express(); // create a new app
@@ -19,7 +19,6 @@ app.use(express.json()); // allows POST requests with JSON
 app.use(express.urlencoded({ extended: false })); // allows POST requests with GET-like parameters
 app.use(cookieParser()); // Parses cookies
 
-
 app.use(session({ // handles sessions
   secret: 'keyboard cat', // <-- this should be a secret phrase
   cookie: { secure: IS_PRODUCTION }, // <-- secure only in production
@@ -28,5 +27,4 @@ app.use(session({ // handles sessions
 }))
 
 
-export default app;
-
+export default app; 
