@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Slider from '../../components/Slider/Slider';
-import Form from '../../components/Form/Form';
-class HomePage extends Component {
-  render() {
+import HowItWorks from '../../components/HowItWorks/HowItWorks';
+import EventSection from '../../components/UpComingEvents/EventSection/EventSection'
+import MiniGallery from '../../components/MiniGallery/MiniGallery'
+const HomePage = (props) => {
     return (
+    
       <main className="wrapper">
+        {/* {console.log()} */}
         <Header />
-        <Form />
+        <Slider />
+        <EventSection events={props.events}/>
+        <HowItWorks />
+        <MiniGallery src={props.miniGallery}/>
+        <Footer />
       </main>
     );
   }
-}
 
 export default HomePage;

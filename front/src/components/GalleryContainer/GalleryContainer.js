@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './GalleryContainer.css';
-
-class GalleryContainer extends Component {
-  render() {
+import GalleryPic from './GalleryPic/GalleryPic'
+const GalleryContainer = (props) => {
     return( 
       <div>
         <h1 id="gallery_h1">Our Photos</h1>
       <div className="gallery_container">
+<<<<<<< HEAD
       
         <div className="gallery_box">
           <img className="gallery_pic" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"></img> 
@@ -67,10 +67,15 @@ class GalleryContainer extends Component {
               <img className="gallery_pic" src="https://images.unsplash.com/photo-1447749506926-b897c10cffc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"></img> 
         </div>
 
+=======
+        {props.gallery && props.gallery.map(image => {
+          console.log(image)
+          return <GalleryPic src={image} />
+        })}        
+>>>>>>> d9c55a116be808fccf8346bfacd9982509b510fc
       </div>
       </div>
     )
 }
 
-}
 export default GalleryContainer;
