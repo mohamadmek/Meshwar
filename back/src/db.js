@@ -61,7 +61,7 @@ const initializeDatabase = async () => {
     stmt = stmt.split("")
     stmt.pop();
     stmt = stmt.join("")
-    stmt+= ` WHERE even t_id=${id}`
+    stmt+= ` WHERE event_id=${id}`
     console.log("stmt", stmt)
     try {
       const result = await db.run(stmt);
@@ -74,16 +74,29 @@ const initializeDatabase = async () => {
     }
   };
 
-  const createImage = async (props) => {
+  const createImage = async (req) => {
     let stmt = `Insert into Pictures (name) values ('${req}')`
-    if(req.file == undefined){
-      throw new Error(`You must provide an image`);
-    }
     try{
       const result = await db.run(stmt)
-      return result
+      if(result.stmt.changes == 0){
+        throw new Error("you must provide somethind")
+      }
+      return true;
     }catch(err){
       throw new Error("this type doesn't work")
+    }
+  }
+
+  const deleteImage = async (id) => {
+    let stmt = `Delete from Pictures where picture_id=${id}`
+    try{
+      const result = await db.run(stmt)
+      if(result.stmt.changes == 0){
+        throw new Error(`Image with id: ${id} doesn't exist`)
+      }
+      return true
+    }catch(err){
+      throw new Error(`did not delete event with id:${id}`)
     }
   }
 
@@ -92,7 +105,8 @@ const initializeDatabase = async () => {
     getEventById,
     deleteEvent,
     updateEvent,
-    createImage
+    createImage,
+    deleteImage
   }
 
   return controller

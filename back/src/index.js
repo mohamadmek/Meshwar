@@ -15,23 +15,20 @@ const start = async() => {
     const result = await controller.getEvents();
    res.json(result);    
  });
-
-  app.get('/events/update/:id', async(req, res) =>{
-    const{id} = req.params;
-    let event = req.query;  
-    const result = await controller.updateEvent(id, event);
+  app.get('/events/:id', async(req, res) => {
+    const id = req.params.id;
+    const result = await controller.getEventById(id);
     res.json(result)
   })
-  
-  app.get('/events/delete/:id', async(req, res) =>{
+  app.delete('/events/:id', async(req, res) =>{
     const {id} = req.params;
     const result = await controller.deleteEvent(id)
     res.json(result)
   });
-
-  app.get('/events/:id', async(req, res) => {
-    const id = req.params.id;
-    const result = await controller.getEventById(id);
+  app.put('/events/:id', async(req, res) =>{
+    const{id} = req.params;
+    let event = req.query;  
+    const result = await controller.updateEvent(id, event);
     res.json(result)
   })
 
@@ -72,10 +69,14 @@ const upload = multer({
     //     }
     //   }
     // })
-    //const result = controller.createImage(req.file.filename);
+    const result = controller.createImage(req.file.filename);
     res.json(result)
-    console.log("file", req.file)
-    console.log("meme", req.file.mimetype)
+  })
+                           
+  app.delete('/images/:id', async(req, res) => {
+    const id = req.params.id;
+    const result = await controller.deleteImage(id)
+    res.json(result)
   })
 }
 

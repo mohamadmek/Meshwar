@@ -1,6 +1,34 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/HomePage/HomePage';
+<<<<<<< HEAD
+import Header from './components/Header/Header';
+import GalleryContainer from './components/GalleryContainer/GalleryContainer';
+<<<<<<< HEAD
+
+import Slider from './components/Slider/Slider';
+import EventCard from './components/UpComingEvents/EventCard/EventCard';
+import Footer from './components/Footer/Footer';
+import Home from './pages/HomePage/HomePage';
+=======
+import Footer from './components/Footer/Footer';
+import EventsPage from './pages/EventsPage/EventsPage';
+>>>>>>> b7056157545ae10a7b9b03a18629da303a41ccff
+
+function App() {
+  return (
+    <div className="App">
+<<<<<<< HEAD
+      <Header/>
+      <GalleryContainer />
+      <Home />
+      
+=======
+      <EventsPage />
+>>>>>>> b7056157545ae10a7b9b03a18629da303a41ccff
+    </div>
+  );
+=======
 import Events from './pages/EventsPage/EventsPage'
 import Gallery from './pages/GalleryPage/GalleryPage'
 import ContactPage from './pages/ContactUsPage/ContactUsPage'
@@ -92,6 +120,7 @@ class App extends React.Component {
       </Router>
     ); 
   }
+>>>>>>> d9c55a116be808fccf8346bfacd9982509b510fc
 }
 
 export default App;
