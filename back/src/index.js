@@ -2,6 +2,7 @@ import app, { upload } from './app'
 import initializeDatabase from './db';
 import { response } from 'express';
 import path from 'path';
+import nodemailer from 'nodemailer';
 const multer = require('multer');
 const start = async() => {
   const controller = await initializeDatabase();
@@ -20,6 +21,12 @@ const start = async() => {
     const result = await controller.getEventById(id);
     res.json(result)
   })
+  app.post('/events', async (req, res) => {
+    console.log(req.body);
+    let {id, location, date, title, price, img_src, remaining_seats, description} = req.body;
+    let result = await controller.createEvent({id, location, date, title, price, img_src, remaining_seats, description});
+    res.json(result)
+})
   app.delete('/events/:id', async(req, res) =>{
     const {id} = req.params;
     const result = await controller.deleteEvent(id)
@@ -78,6 +85,53 @@ const upload = multer({
     const result = await controller.deleteImage(id)
     res.json(result)
   })
+
+
+  app.post('/contact', async(req, res) => {
+    let data = req.body;	
+    let output = `
+    <p>Contact is trying to reach you</p>
+    <h3>Contact Details</h3>
+    <ul>
+        <li>Name: ${data.name}</li>
+        <li>Email: ${data.email}</li>
+        <li>Address: ${data.address}</li>
+        <li>Mobile: ${data.mobile}</li>
+        <li>Message: ${data.message}</li>
+    </ul>
+    `;
+    let transporter = nodemailer.createTransport({
+          service: 'gmail',
+        auth: {
+        user: 'maggiepowerpuffgirl@gmail.com', // generated ethereal user
+        pass: 'P@ssword123_'// geerated ethereal password
+        }
+    });
+  
+    let info = await transporter.sendMail({
+            from: 'haddadanthony06@gmail.com', // sender address
+            to: "maggiepowerpuffgirl@gmail.com", // list of receivers
+            subject: "Hello ✔", // Subject line
+            text: "Hello world?", // plain text body
+            html: output // html body
+          
+    });
+  
+      console.log("Message sent: %s", info.messageId);
+      })
+  
+      
+      app.get('/events/registrations', async (req, res) => {
+          let result = await controller.getRegistrations();
+          res.json(result);
+      })
+     
+      app.post('/events/addRegistration', async (req, res) => {
+          let { id, name, age, mobile, email, event_id, address } = req.body;
+          console.log(req.query);
+          let result = await controller.createRegistration({id, name, age, mobile, email, event_id, address});
+          res.json(result);
+      })
 }
 
 

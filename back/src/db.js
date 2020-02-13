@@ -31,7 +31,19 @@ const initializeDatabase = async () => {
       throw new Error("could not retrieve list of events")
     }
   }
+  const createEvent = async (props) => {
+    const {id, location, date, title, price, image_src, remaining_seats, description} = props;
+    let query = `INSERT INTO 
+       Events(event_id, location, date, title, price, image_src, remaining_seats, description)
+       VALUES(${id}, '${location}', '${date}', '${title}', ${price}, '${image_src}', ${remaining_seats}, '${description}');`
+    
+    let result = await db.run(query, (err) => {
+       if (err) throw err;
+       console.log('Event Created Successfully!');
+    })
 
+    return result;
+ }
   const deleteEvent = async id => {
     let stmt = `Delete from Events where event_id=${id}`
     try {
@@ -100,13 +112,37 @@ const initializeDatabase = async () => {
     }
   }
 
+  const getRegistrations = async () => {
+    let query = `SELECT * FROM registrations`;
+    let result = await db.all(query);
+    return result;
+ }
+
+ const createRegistration = async (props) => {
+    const {id, name, age, mobile, email, event_id, address} = props;
+    let query = `INSERT INTO 
+       Registrations (registration_id, full_name, age, email, address, event_id, mobile)
+       VALUES('${id}', '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}');`
+    
+    let result = await db.run(query, (err) => {
+       if (err) throw err;
+       console.log('Event Created Successfully!');
+    })
+
+    return result;
+ }
+
+
   const controller= {
     getEvents,
     getEventById,
     deleteEvent,
     updateEvent,
     createImage,
-    deleteImage
+    deleteImage,
+    createEvent,
+      getRegistrations,
+      createRegistration
   }
 
   return controller
@@ -134,3 +170,5 @@ export default initializeDatabase;
 // }
 
 // export default {test};
+
+
