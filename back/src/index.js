@@ -8,35 +8,66 @@ const start = async() => {
   const controller = await initializeDatabase();
 
   app.get('/', async (req, res)=>{
-     const result = await controller.getEvents();
-    res.json(result);    
+    try{
+      const result = await controller.getEvents();
+      res.json({success: true, result}); 
+    } catch(err){
+      next(err)
+    }
+        
   });
 
   app.get('/events', async (req, res)=>{
-    const result = await controller.getEvents();
-   res.json(result);    
+    try{
+      const result = await controller.getEvents();
+      res.json({success: true, result});   
+    }catch(err){
+      next(err)
+    }
+     
  });
   app.get('/events/:id', async(req, res) => {
     const id = req.params.id;
-    const result = await controller.getEventById(id);
-    res.json(result)
+    try{
+      const result = await controller.getEventById(id);
+      res.json({success: true, result}); 
+    }catch(err){
+      next(err)
+    }
+    
   })
   app.post('/events', async (req, res) => {
     console.log(req.body);
     let {id, location, date, title, price, img_src, remaining_seats, description} = req.body;
-    let result = await controller.createEvent({id, location, date, title, price, img_src, remaining_seats, description});
-    res.json(result)
+    try{
+      let result = await controller.createEvent({id, location, date, title, price, img_src, remaining_seats, description});
+      res.json({success: true, result}); 
+    }catch(err){
+      next(err)
+    }
+  
+    
 })
   app.delete('/events/:id', async(req, res) =>{
     const {id} = req.params;
-    const result = await controller.deleteEvent(id)
-    res.json(result)
+    try{
+      const result = await controller.deleteEvent(id)
+      res.json({success: true, result}); 
+    }catch(err){
+      next(err)
+    }
+   
   });
   app.put('/events/:id', async(req, res) =>{
     const{id} = req.params;
     let event = req.query;  
-    const result = await controller.updateEvent(id, event);
-    res.json(result)
+    try{
+      const result = await controller.updateEvent(id, event);
+      res.json({success: true, result}); 
+    }
+    catch(err){
+      next(err)
+    }
   })
 
 //storage
@@ -76,14 +107,24 @@ const upload = multer({
     //     }
     //   }
     // })
-    const result = controller.createImage(req.file.filename);
-    res.json(result)
+    try{
+      const result = controller.createImage(req.file.filename);
+      res.json({success: true, result}); 
+    }catch(err){
+      next(err)
+    }
+    
   })
                            
   app.delete('/images/:id', async(req, res) => {
     const id = req.params.id;
-    const result = await controller.deleteImage(id)
-    res.json(result)
+    try{
+      const result = await controller.deleteImage(id)
+      res.json({success: true, result}); 
+    }catch(err){
+      next(err)
+    }
+   
   })
 
 
@@ -122,18 +163,32 @@ const upload = multer({
   
       
       app.get('/events/registrations', async (req, res) => {
+        try{
           let result = await controller.getRegistrations();
-          res.json(result);
+          res.json({success: true, result}); 
+        }catch(err){
+          next(err)
+        }
+          
       })
      
       app.post('/events/addRegistration', async (req, res) => {
           let { id, name, age, mobile, email, event_id, address } = req.body;
           console.log(req.query);
-          let result = await controller.createRegistration({id, name, age, mobile, email, event_id, address});
-          res.json(result);
+          try{
+            let result = await controller.createRegistration({id, name, age, mobile, email, event_id, address});
+            res.json({success: true, result}); 
+          }catch(err){
+            next(err)
+          }
+         
+      })
+
+      app.use((err, req, res, next) => {
+        res.status(500).json({success: false, message: err})
       })
 }
 
 
-app.listen(8081, () => console.log('server listening on port 8080'))
+app.listen(8080, () => console.log('server listening on port 8080'))
 start();
