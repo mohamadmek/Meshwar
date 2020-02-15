@@ -11,11 +11,17 @@ const start = async() => {
      const result = await controller.getEvents();
     res.json(result);    
   });
+  
+    app.get('/home', async (req, res) => {
+	const result = await controller.getEvents();
+	res.json(result);
+    })
 
   app.get('/events', async (req, res)=>{
     const result = await controller.getEvents();
-   res.json(result);    
+    res.json(result)
  });
+
   app.get('/events/:id', async(req, res) => {
     const id = req.params.id;
     const result = await controller.getEventById(id);
@@ -88,34 +94,34 @@ const upload = multer({
 
 
   app.post('/contact', async(req, res) => {
-    let data = req.body;	
-    let output = `
-    <p>Contact is trying to reach you</p>
-    <h3>Contact Details</h3>
-    <ul>
-        <li>Name: ${data.name}</li>
-        <li>Email: ${data.email}</li>
-        <li>Address: ${data.address}</li>
-        <li>Mobile: ${data.mobile}</li>
-        <li>Message: ${data.message}</li>
-    </ul>
-    `;
-    let transporter = nodemailer.createTransport({
-          service: 'gmail',
-        auth: {
-        user: 'maggiepowerpuffgirl@gmail.com', // generated ethereal user
-        pass: 'P@ssword123_'// geerated ethereal password
-        }
-    });
+	let data = req.body;	
+	let output = `
+	<p>Contact is trying to reach you</p>
+	<h3>Contact Details</h3>
+	<ul>
+	    <li>Name: ${data.name}</li>
+	    <li>Email: ${data.email}</li>
+	    <li>Address: ${data.address}</li>
+	    <li>Mobile: ${data.mobile}</li>
+	    <li>Message: ${data.message}</li>
+	</ul>
+	`;
+	let transporter = nodemailer.createTransport({
+	      service: 'gmail',
+	    auth: {
+	    user: 'maggiepowerpuffgirl@gmail.com', // generated ethereal user
+	    pass: 'P@ssword123_'// geerated ethereal password
+	    }
+	});
   
-    let info = await transporter.sendMail({
-            from: 'haddadanthony06@gmail.com', // sender address
-            to: "maggiepowerpuffgirl@gmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: output // html body
-          
-    });
+	let info = await transporter.sendMail({
+		from: 'haddadanthony06@gmail.com', // sender address
+		to: "maggiepowerpuffgirl@gmail.com", // list of receivers
+		subject: "Hello ✔", // Subject line
+		text: "Hello world?", // plain text body
+		html: output // html body
+	      
+	});
   
       console.log("Message sent: %s", info.messageId);
       })
@@ -135,5 +141,5 @@ const upload = multer({
 }
 
 
-app.listen(8081, () => console.log('server listening on port 8080'))
+app.listen(8080, () => console.log('server listening on port 8080'))
 start();
