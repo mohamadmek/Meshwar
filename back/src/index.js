@@ -7,7 +7,31 @@ const multer = require('multer');
 const start = async() => {
   const controller = await initializeDatabase();
 
-  app.get('/', async (req, res)=>{
+  //storage
+const storage = multer.diskStorage({
+  destination:path.join(__dirname, '../public/images'),
+  filename: function(req, file, cb) {
+    cb(null,Date.now()+file.originalname)
+  } 
+ })
+ //to get just images not other files
+ const fileFilter = (req, file, cb) => {
+   //reject a file: cb(null, false)
+   //accpet a file: cb(null, true)
+   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif'){
+    return cb(null, true)
+   } else {
+    return cb(null, false)
+   }
+ };
+ //to upload it
+ const upload = multer({
+   storage: storage,
+   limits: {fileSize: 1000000},
+   fileFilter: fileFilter
+ })
+
+  app.get('/', async (req, res, next)=>{
     try{
       const result = await controller.getEvents();
       res.json({success: true, result}); 
@@ -17,12 +41,12 @@ const start = async() => {
         
   });
   
-    app.get('/home', async (req, res) => {
+    app.get('/home', async (req, res, next) => {
 	const result = await controller.getEvents();
 	res.json(result);
     })
 
-  app.get('/events', async (req, res)=>{
+  app.get('/events', async (req, res, next)=>{
     try{
       const result = await controller.getEvents();
       res.json({success: true, result});   
@@ -31,7 +55,7 @@ const start = async() => {
     }
  });
 
-  app.get('/events/:id', async(req, res) => {
+  app.get('/events/:id', async(req, res, next) => {
     const id = req.params.id;
     try{
       const result = await controller.getEventById(id);
@@ -41,17 +65,17 @@ const start = async() => {
     }
   })
 
-  app.post('/events', async (req, res) => {
-    let {id, location, date, title, price, img_src, remaining_seats, description} = req.body;
+  app.post('/events',upload.single("image"), async (req, res, next) => {
+    let { location, date, title, price, img_src, remaining_seats, description} = req.body;
     try{
-      let result = await controller.createEvent({id, location, date, title, price, img_src, remaining_seats, description});
+      let result = await controller.createEvent({ location, date, title, price, img_src, remaining_seats, description});
       res.json({success: true, result}); 
     }catch(err){
       next(err)
     } 
 })
 
-  app.delete('/events/:id', async(req, res) =>{
+  app.delete('/events/:id', async(req, res, next) =>{
     const {id} = req.params;
     try{
       const result = await controller.deleteEvent(id)
@@ -61,7 +85,7 @@ const start = async() => {
     }
    
   });
-  app.put('/events/:id', async(req, res) =>{
+  app.put('/events/:id', async(req, res, next) =>{
     const{id} = req.params;
     let event = req.query;  
     try{
@@ -72,43 +96,9 @@ const start = async() => {
     }
   })
 
-//storage
-const storage = multer.diskStorage({
- destination:path.join(__dirname, '../public/images'),
- filename: function(req, file, cb) {
-   cb(null,Date.now()+file.originalname)
- } 
-})
-//to get just images not other files
-const fileFilter = (req, file, cb) => {
-  //reject a file: cb(null, false)
-  //accpet a file: cb(null, true)
-  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif'){
-   return cb(null, true)
-  } else {
-   return cb(null, false)
-  }
-};
-//to upload it
-const upload = multer({
-  storage: storage,
-  limits: {fileSize: 1000000},
-  fileFilter: fileFilter
-})
 
-  app.post('/upload', upload.single("images"), (req, res) => {
-    // upload(req,res, (err) => {
-    //   if(err){
-    //     res.send("error")
-    //   } else {
-    //     if(req.file == undefined) {
-    //       res.send("no file selected")
-    //     } else {
-    //       res.send("file uploaded")
-    //       file: `/${req.file.filename}`
-    //     }
-    //   }
-    // })
+
+  app.post('/upload', upload.single("image"), (req, res, next) => {
     try{
       const result = controller.createImage(req.file.filename);
       res.json({success: true, result}); 
@@ -118,7 +108,7 @@ const upload = multer({
     
   })
   
-  app.get("/gallery", async (req, res) => {
+  app.get("/gallery", async (req, res, next) => {
     try{
       const result = await controller.getImages()
       res.json({success: true, result})
@@ -127,7 +117,7 @@ const upload = multer({
     }
   })
 
-  app.delete('/images/:id', async(req, res) => {
+  app.delete('/images/:id', async(req, res, next) => {
     const id = req.params.id;
     try{
       const result = await controller.deleteImage(id)
@@ -139,7 +129,7 @@ const upload = multer({
   })
 
 
-  app.post('/contact', async(req, res) => {
+  app.post('/contact', async(req, res, next) => {
 	let data = req.body;	
 	let output = `
 	<p>Contact is trying to reach you</p>
@@ -173,7 +163,7 @@ const upload = multer({
       })
   
       
-      app.get('/events/registrations', async (req, res) => {
+      app.get('/events/registrations', async (req, res, next) => {
         try{
           let result = await controller.getRegistrations();
           res.json({success: true, result}); 
@@ -183,9 +173,8 @@ const upload = multer({
           
       })
      
-      app.post('/events/addRegistration', async (req, res) => {
+      app.post('/events/addregistration', async (req, res, next) => {
           let { id, name, age, mobile, email, event_id, address } = req.body;
-          console.log(req.query);
           try{
             let result = await controller.createRegistration({id, name, age, mobile, email, event_id, address});
             res.json({success: true, result}); 
