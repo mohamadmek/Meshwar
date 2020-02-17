@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       events: [],
-      gallery: ["mohamad"],
+      gallery: [],
       error: ""
     }
   }
@@ -32,9 +32,23 @@ class App extends React.Component {
     }
   }
   
+  getImages = async () => {
+    try{
+      const response = await fetch("http://localhost:8080/gallery")
+      const result = await response.json();
+      if(result.success){
+        this.setState({gallery: [...result.result], error: ""})
+      }else{
+        this.setState({error: result.message})
+      }
+    }catch(err){
+      this.setState({error: err})
+    }
+  }
 
     async componentDidMount(){
       this.getEvents()
+      this.getImages()
     }
 	
     

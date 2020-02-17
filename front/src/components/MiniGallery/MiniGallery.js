@@ -5,7 +5,7 @@ class MiniGallery extends Component {
   randNB = () => {
     const arrRand = [];
     if(this.props.src.length > 0) {
-      while (arrRand.length > 5) {
+      while (arrRand.length < 5) {
         let rand = Math.floor(Math.random() * this.props.src.length);
         if (arrRand.includes(rand)) {
           rand = Math.floor(Math.random() * this.props.src.length);
@@ -16,12 +16,6 @@ class MiniGallery extends Component {
     } 
     return arrRand;
   };
-
-  // looping = () => {
-  //   for(let i=0; i<this.props.src.length; i++) {
-  //     return this.props.src[]
-  //   }
-  // }
 
   render() {
     const random = this.randNB();
