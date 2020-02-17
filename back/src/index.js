@@ -34,20 +34,18 @@ const start = async() => {
     }catch(err){
       next(err)
     }
-    
   })
+
   app.post('/events', async (req, res) => {
-    console.log(req.body);
     let {id, location, date, title, price, img_src, remaining_seats, description} = req.body;
     try{
       let result = await controller.createEvent({id, location, date, title, price, img_src, remaining_seats, description});
       res.json({success: true, result}); 
     }catch(err){
       next(err)
-    }
-  
-    
+    } 
 })
+
   app.delete('/events/:id', async(req, res) =>{
     const {id} = req.params;
     try{
@@ -64,8 +62,7 @@ const start = async() => {
     try{
       const result = await controller.updateEvent(id, event);
       res.json({success: true, result}); 
-    }
-    catch(err){
+    }catch(err){
       next(err)
     }
   })
@@ -115,7 +112,16 @@ const upload = multer({
     }
     
   })
-                           
+  
+  app.get("/gallery", async (req, res) => {
+    try{
+      const result = await controller.getImages()
+      res.json({success: true, result})
+    }catch(err){
+      console.log(err)
+    }
+  })
+
   app.delete('/images/:id', async(req, res) => {
     const id = req.params.id;
     try{

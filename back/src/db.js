@@ -98,7 +98,18 @@ const initializeDatabase = async () => {
       throw new Error("this type doesn't work")
     }
   }
-
+  const getImages = async () => {
+    let stmt = `Select name from Pictures`
+    try{
+      const result = await db.all(stmt)
+      if(result.length == 0) {
+        throw new Error("image not found")
+      }
+      return result
+    }catch(err){
+      throw new Error("image crashed")
+    }
+  }
   const deleteImage = async (id) => {
     let stmt = `Delete from Pictures where picture_id=${id}`
     try{
@@ -139,10 +150,11 @@ const initializeDatabase = async () => {
     deleteEvent,
     updateEvent,
     createImage,
+    getImages,
     deleteImage,
     createEvent,
-      getRegistrations,
-      createRegistration
+    getRegistrations,
+    createRegistration
   }
 
   return controller
