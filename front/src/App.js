@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/HomePage/HomePage';
+import Footer from './components/Footer/Footer';
+import EventsPage from './pages/EventsPage/EventsPage';
 import Events from './pages/EventsPage/EventsPage'
 import Gallery from './pages/GalleryPage/GalleryPage'
 import ContactPage from './pages/ContactUsPage/ContactUsPage'
@@ -11,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       events: [],
-      gallery: [],
+      gallery: ["mohamad"],
       error: ""
     }
   }
@@ -25,16 +27,17 @@ class App extends React.Component {
       } else {
         this.setState({error: result.message})
       }
-      
-      console.log(this.state.events)
     }catch(err){
       this.setState({error: err})
     }
   }
   
-  async componentDidMount() {
-    this.getEvents()
-  }
+
+    async componentDidMount(){
+      this.getEvents()
+    }
+	
+    
   
   render() {
     return (

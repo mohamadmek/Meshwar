@@ -88,9 +88,9 @@ class EventCard extends Component {
         <div><i className="fa fa-map-marker EventCard_marker"></i>{location}</div>
         <div className="EventCard_date"><i className="fa fa-calendar EventCard_calendar"></i>{date}</div>
         <div className="EventCard_flex">
-          <div><i className="fa fa-users EventCard_users"></i>Seats remaining: {remainingSeats}
+          <div><i className="fa fa-users EventCard_users"></i>Seats remaining: {remainingSeats} 
           |</div>
-          <div>Price {price}</div>
+          <div>Price: {price}</div>
         </div>
         <Button onClick={this.toggleMoreInfo} className="EventCard_info">More Info</Button>
         <Button onClick={this.toggleRegister}>Register</Button>
