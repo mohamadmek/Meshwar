@@ -21,6 +21,7 @@ class EventCard extends Component {
 
   render() {
     const {src, title, description, remainingSeats, date, location, price} = this.props;
+    console.log("title", this.props.title)
     let moreInfo = null;
     let register = null;
 
@@ -73,7 +74,7 @@ class EventCard extends Component {
        <>
       <Article className="EventSection_m_mt10">
       <div style={{
-        background: `url(${src}) no-repeat center center/cover`,
+        background: `url('http://localhost:8080/images/${src}') no-repeat center center/cover`,
         position: "relative",
         width: "100%",
         height: "200px",

@@ -21,9 +21,9 @@ class EventsPage extends Component {
               location={event.location}
               date={event.date}
               price={event.price}
-              remainingSeats={event.remainingSeats}
+              remainingSeats={event.remaining_seats}
               description={event.description}
-              src={event.imageSource}/>
+              src={event.image_src}/>
           })
         }  
       </section>
