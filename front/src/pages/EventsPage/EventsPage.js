@@ -8,6 +8,7 @@ import './EventsPage.css';
 class EventsPage extends Component {
 
   render() {
+    console.log(this.props)
   return (
     <>
     <Header />
@@ -21,9 +22,10 @@ class EventsPage extends Component {
               location={event.location}
               date={event.date}
               price={event.price}
-              remainingSeats={event.remainingSeats}
+              remainingSeats={event.remaining_seats}
               description={event.description}
-              src={event.imageSource}/>
+              src={event.image_src}
+              pictureID={event.picture_id}/>
           })
         }  
       </section>

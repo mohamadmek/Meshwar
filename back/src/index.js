@@ -48,12 +48,12 @@ const start = async() => {
 //storage
 const storage = multer.diskStorage({
  destination:path.join(__dirname, '../public/images'),
- filename: function(req,file,cb) {
+ filename: function(req, file, cb) {
    cb(null,Date.now()+file.originalname)
  } 
 })
 //to get just images not other files
-const fileFilter = (req, file,cb) => {
+const fileFilter = (req, file, cb) => {
   //reject a file: cb(null, false)
   //accpet a file: cb(null, true)
   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif'){
@@ -65,7 +65,7 @@ const fileFilter = (req, file,cb) => {
 //to upload it
 const upload = multer({
   storage: storage,
-  limits: {fileSize: 100000},
+  limits: {fileSize: 1000000},
   fileFilter: fileFilter
 })
 

@@ -31,6 +31,7 @@ const initializeDatabase = async () => {
       throw new Error("could not retrieve list of events")
     }
   }
+  
   const createEvent = async (props) => {
     const {id, location, date, title, price, image_src, remaining_seats, description} = props;
     let query = `INSERT INTO 
