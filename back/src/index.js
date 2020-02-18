@@ -66,7 +66,10 @@ const storage = multer.diskStorage({
   })
 
   app.post('/events',upload.single("image"), async (req, res, next) => {
-    let { location, date, title, price, img_src, remaining_seats, description} = req.body;
+    let { location, date, title, price,  remaining_seats, description} = req.body;
+    let file = req.file.filename;
+    const img_src = file
+    console.log(file)
     try{
       let result = await controller.createEvent({ location, date, title, price, img_src, remaining_seats, description});
       res.json({success: true, result}); 
@@ -185,7 +188,7 @@ const storage = multer.diskStorage({
       })
 
       app.use((err, req, res, next) => {
-        res.status(500).json({success: false, message: err})
+        res.status(500).json({success: false, message: err.message})
       })
 }
 
