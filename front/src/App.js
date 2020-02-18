@@ -8,23 +8,47 @@ import Gallery from './pages/GalleryPage/GalleryPage'
 import ContactPage from './pages/ContactUsPage/ContactUsPage'
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-
 class App extends React.Component {
-   state = {
-
+  constructor(props){
+    super(props);
+    this.state = {
+      events: [],
+      gallery: [],
+      error: ""
+    }
+  }
+  
+  getEvents = async () => {
+    try{
+      const response = await fetch("http://localhost:8080/events");
+      const result = await response.json();
+      if(result.success){
+        this.setState({events: [...result.result], error: ""})
+      } else {
+        this.setState({error: result.message})
+      }
+    }catch(err){
+      this.setState({error: err})
+    }
+  }
+  
+  getImages = async () => {
+    try{
+      const response = await fetch("http://localhost:8080/gallery")
+      const result = await response.json();
+      if(result.success){
+        this.setState({gallery: [...result.result], error: ""})
+      }else{
+        this.setState({error: result.message})
+      }
+    }catch(err){
+      this.setState({error: err})
+    }
   }
 
-   
-  async componentDidMount(){
-	const url = 'http://localhost:8080/events';
-	const response = await fetch(url, {
-	    method: 'GET',
-	    headers: {'Content-Type': 'application/json'}
-	})
-	
-	const data = await response.json();
-	this.setState({events: data})
-	console.log(this.state.events);
+    async componentDidMount(){
+      this.getEvents()
+      this.getImages()
     }
 	
     

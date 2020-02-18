@@ -7,7 +7,6 @@ import {Link} from "react-router-dom"
 
   
 const EventSection = (props) => {
-    console.log(props)
    return (
       <div>
         <h3 style={{ paddingBottom: "20px", borderBottom: "2px solid #A8C2CA",textAlign: "center",width:"300px", margin: "0 auto", marginTop: "30px" }}>Upcoming Events</h3>

@@ -21,6 +21,7 @@ class EventCard extends Component {
 
   render() {
     const {src, title, description, remainingSeats, date, location, price} = this.props;
+    console.log("title", this.props.title)
     let moreInfo = null;
     let register = null;
 

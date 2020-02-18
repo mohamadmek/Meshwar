@@ -33,26 +33,35 @@ const initializeDatabase = async () => {
   }
   
   const createEvent = async (props) => {
-    const {id, location, date, title, price, image_src, remaining_seats, description} = props;
+    const { location, date, title, price, img_src, remaining_seats, description} = props;
     let query = `INSERT INTO 
-       Events(event_id, location, date, title, price, image_src, remaining_seats, description)
-       VALUES(${id}, '${location}', '${date}', '${title}', ${price}, '${image_src}', ${remaining_seats}, '${description}');`
-    
-    let result = await db.run(query, (err) => {
-       if (err) throw err;
-       console.log('Event Created Successfully!');
-    })
-
-    return result;
+       Events( location, date, title, price, image_src, remaining_seats, description)
+       VALUES('${location}', '${date}', '${title}', ${price}, '${img_src}', ${remaining_seats}, '${description}');`
+     
+    try{
+      let result = await db.run(query)
+      if(result.stmt.changes == 0){
+        throw new Error("something missing")
+      }else{
+        let lastID = result.stmt.lastID;
+       let stmt = `INSERT INTO Pictures(event_id, type_id, name) VALUES(${lastID}, 2, '${img_src}')`
+        let res2 = await db.run(stmt)
+      }
+     }catch(err){
+      throw new Error("could not add event")
+    }
  }
   const deleteEvent = async id => {
-    let stmt = `Delete from Events where event_id=${id}`
+    let stmt1 = `Delete from Pictures where event_id=${id}`
+    let stmt2 = `Delete from Events where event_id=${id}`
     try {
-      const result = await db.run(stmt);
+      const result = await db.run(stmt1);
       if(result.stmt.changes == 0) {
         throw new Error(`Events with id ${id} dosn't exist`)
+      }else {
+        const result2 = await db.run(stmt2);
       }
-      return true;
+     
     }catch(err) {
       throw new Error(`Could not delete event with id ${id}` + err)
     }
@@ -88,7 +97,7 @@ const initializeDatabase = async () => {
   };
 
   const createImage = async (req) => {
-    let stmt = `Insert into Pictures (name) values ('${req}')`
+    let stmt = `Insert into Pictures (type_id, name) values (1,'${req}')`
     try{
       const result = await db.run(stmt)
       if(result.stmt.changes == 0){
@@ -99,7 +108,18 @@ const initializeDatabase = async () => {
       throw new Error("this type doesn't work")
     }
   }
-
+  const getImages = async () => {
+    let stmt = `Select name from Pictures where type_id=1`
+    try{
+      const result = await db.all(stmt)
+      if(result.length == 0) {
+        throw new Error("image not found")
+      }
+      return result
+    }catch(err){
+      throw new Error("image crashed")
+    }
+  }
   const deleteImage = async (id) => {
     let stmt = `Delete from Pictures where picture_id=${id}`
     try{
@@ -122,8 +142,8 @@ const initializeDatabase = async () => {
  const createRegistration = async (props) => {
     const {id, name, age, mobile, email, event_id, address} = props;
     let query = `INSERT INTO 
-       Registrations (registration_id, full_name, age, email, address, event_id, mobile)
-       VALUES('${id}', '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}');`
+       Registrations ( full_name, age, email, address, event_id, mobile)
+       VALUES( '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}');`
     
     let result = await db.run(query, (err) => {
        if (err) throw err;
@@ -140,10 +160,11 @@ const initializeDatabase = async () => {
     deleteEvent,
     updateEvent,
     createImage,
+    getImages,
     deleteImage,
     createEvent,
-      getRegistrations,
-      createRegistration
+    getRegistrations,
+    createRegistration
   }
 
   return controller
