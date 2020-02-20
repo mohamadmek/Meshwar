@@ -32,12 +32,14 @@ const initializeDatabase = async () => {
   }
 
   const createEvent = async (props) => {
-    const { location, date, title, price, image_src, remaining_seats, description } = props;
+    const { location, date, title, price, img_src, remaining_seats, description} = props;
+    console.log(img_src)
     let query = `INSERT INTO 
        Events( location, date, title, price, image_src, remaining_seats, description)
-       VALUES('${location}', '${date}', '${title}', ${price}, '${image_src}', ${remaining_seats}, '${description}');`
-
-    try {
+       VALUES('${location}', '${date}', '${title}', ${price}, '${img_src}', ${remaining_seats}, '${description}');`
+     
+    try{ 
+      console.log(query)
       let result = await db.run(query)
       if (result.stmt.changes == 0) {
         throw new Error("something missing")
