@@ -34,7 +34,6 @@ const initializeDatabase = async () => {
   
   const createEvent = async (props) => {
     const { location, date, title, price, img_src, remaining_seats, description} = props;
-    console.log(img_src)
     let query = `INSERT INTO 
        Events( location, date, title, price, image_src, remaining_seats, description)
        VALUES('${location}', '${date}', '${title}', ${price}, '${img_src}', ${remaining_seats}, '${description}');`
@@ -102,6 +101,7 @@ const initializeDatabase = async () => {
     let stmt = `Insert into Pictures (type_id, name) values (1,'${req}')`
     try{
       const result = await db.run(stmt)
+      console.log(stmt)
       if(result.stmt.changes == 0){
         throw new Error("you must provide somethind")
       }
@@ -111,7 +111,7 @@ const initializeDatabase = async () => {
     }
   }
   const getImages = async () => {
-    let stmt = `Select name from Pictures where type_id=1`
+    let stmt = `Select name, picture_id from Pictures where type_id=1`
     try{
       const result = await db.all(stmt)
       if(result.length == 0) {
