@@ -4,64 +4,64 @@ import { response } from 'express';
 import path from 'path';
 import nodemailer from 'nodemailer';
 const multer = require('multer');
-const start = async() => {
+const start = async () => {
   const controller = await initializeDatabase();
 
   //storage
-const storage = multer.diskStorage({
-  destination:path.join(__dirname, '../public/images'),
-  filename: function(req, file, cb) {
-    cb(null,Date.now()+file.originalname)
-  } 
- })
- //to get just images not other files
- const fileFilter = (req, file, cb) => {
-   //reject a file: cb(null, false)
-   //accpet a file: cb(null, true)
-   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif'){
-    return cb(null, true)
-   } else {
-    return cb(null, false)
-   }
- };
- //to upload it
- const upload = multer({
-   storage: storage,
-   limits: {fileSize: 1000000},
-   fileFilter: fileFilter
- })
+  const storage = multer.diskStorage({
+    destination: path.join(__dirname, '../public/images'),
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + file.originalname)
+    }
+  })
+  //to get just images not other files
+  const fileFilter = (req, file, cb) => {
+    //reject a file: cb(null, false)
+    //accpet a file: cb(null, true)
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif') {
+      return cb(null, true)
+    } else {
+      return cb(null, false)
+    }
+  };
+  //to upload it
+  const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 },
+    fileFilter: fileFilter
+  })
 
-  app.get('/', async (req, res, next)=>{
-    try{
+  app.get('/', async (req, res, next) => {
+    try {
       const result = await controller.getEvents();
-      res.json({success: true, result}); 
-    } catch(err){
+      res.json({ success: true, result });
+    } catch (err) {
       next(err)
      
     }
-        
-  });
-  
-    app.get('/home', async (req, res, next) => {
-	const result = await controller.getEvents();
-	res.json(result);
-    })
 
-  app.get('/events', async (req, res, next)=>{
-    try{
+  });
+
+  app.get('/home', async (req, res, next) => {
+    const result = await controller.getEvents();
+    res.json(result);
+  })
+
+  app.get('/events', async (req, res, next) => {
+    try {
       const result = await controller.getEvents();
-      res.json({success: true, result});   
-    }catch(err){
+      res.json({ success: true, result });
+    } catch (err) {
       next(err)
     }
- });
+  });
 
-  app.get('/events/:id', async(req, res, next) => {
+  app.get('/events/:id', async (req, res, next) => {
     const id = req.params.id;
-    try{
+    try {
       const result = await controller.getEventById(id);
-      res.json({success: true, result}); 
-    }catch(err){
+      res.json({ success: true, result });
+    } catch (err) {
       next(err)
     }
   })
@@ -75,65 +75,77 @@ const storage = multer.diskStorage({
       res.json({success: true, result}); 
     }catch(err){
       next(err)
-    } 
-})
-
-  app.delete('/events/:id', async(req, res, next) =>{
-    const {id} = req.params;
-    try{
-      const result = await controller.deleteEvent(id)
-      res.json({success: true, result}); 
-    }catch(err){
-      next(err)
-    }
-   
-  });
-  app.put('/events/:id', upload.none(), async(req, res, next) =>{
-    const{id} = req.params;
-    let event = req.body;
-    try{
-      const result = await controller.updateEvent(id, event);
-      res.json({success: true, result}); 
-    }catch(err){
-      next(err)
     }
   })
 
 
+  app.delete('/events/:id', async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      const result = await controller.deleteEvent(id)
+      res.json({ success: true, result });
+    } catch (err) {
+      next(err)
+    }
+
+  });
+
+  app.put('/events/:id', upload.none(), async (req, res, next) => {
+    const { id } = req.params;
+    let event = req.body;
+    try {
+      const result = await controller.updateEvent(id, event);
+      res.json({ success: true, result });
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  app.put('/events/updateImage:id', upload.single('image'), async (req, res, next) => {
+    const { id } = req.params;
+    let file = req.file.filename;
+    let image = file;
+    try {
+      const result = await controller.updateImage(id, image);
+      res.json({ success: true, result });
+    } catch (err) {
+      next(err);
+    }
+  })
 
   app.post('/upload', upload.single("image"), (req, res, next) => {
-    try{
+    try {
       const result = controller.createImage(req.file.filename);
-      res.json({success: true, result}); 
-    }catch(err){
+      res.json({ success: true, result });
+    } catch (err) {
       next(err)
     }
   })
-  
+
   app.get("/gallery", async (req, res, next) => {
-    try{
+    try {
       const result = await controller.getImages()
-      res.json({success: true, result})
-    }catch(err){
+      res.json({ success: true, result })
+    } catch (err) {
       console.log(err)
     }
   })
 
-  app.delete('/images/:id', async(req, res, next) => {
+  app.delete('/images/:id', async (req, res, next) => {
     const id = req.params.id;
-    try{
+    try {
       const result = await controller.deleteImage(id)
-      res.json({success: true, result}); 
-    }catch(err){
+      res.json({ success: true, result });
+    } catch (err) {
       next(err)
     }
-   
+
   })
 
 
-  app.post('/contact', async(req, res, next) => {
-	let data = req.body;	
-	let output = `
+  app.post('/contact', async (req, res, next) => {
+    let data = req.body;
+    let output = `
 	<p>Contact is trying to reach you</p>
 	<h3>Contact Details</h3>
 	<ul>
@@ -144,26 +156,41 @@ const storage = multer.diskStorage({
 	    <li>Message: ${data.message}</li>
 	</ul>
 	`;
-	let transporter = nodemailer.createTransport({
-	      service: 'gmail',
-	    auth: {
-	    user: 'maggiepowerpuffgirl@gmail.com', // generated ethereal user
-	    pass: 'P@ssword123_'// geerated ethereal password
-	    }
-	});
-  
-	let info = await transporter.sendMail({
-		from: 'haddadanthony06@gmail.com', // sender address
-		to: "maggiepowerpuffgirl@gmail.com", // list of receivers
-		subject: "Hello ✔", // Subject line
-		text: "Hello world?", // plain text body
-		html: output // html body
-	      
-	});
-  
-      console.log("Message sent: %s", info.messageId);
-      })
-  
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'maggiepowerpuffgirl@gmail.com', // generated ethereal user
+        pass: 'P@ssword123_'// geerated ethereal password
+      }
+    });
+
+    let info = await transporter.sendMail({
+      from: 'haddadanthony06@gmail.com', // sender address
+      to: "maggiepowerpuffgirl@gmail.com", // list of receivers
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: output // html body
+
+    });
+
+    console.log("Message sent: %s", info.messageId);
+  })
+
+
+  app.get('/registrations', async (req, res, next) => {
+    try {
+      let result = await controller.getRegistrations();
+      res.json({ success: true, result });
+    } catch (err) {
+      next(err)
+    }
+
+  })
+
+  app.delete('/deleteregistration/:id', async (req, res, next) => {
+    try {
+      let id = req.params;
+      console.log(id);
       
       app.get('/events/registrations', async (req, res, next) => {
         try{
