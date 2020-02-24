@@ -40,7 +40,7 @@ class EventCard extends Component {
         this.setState({registrations: result})
       }
     } catch(err) {
-      throw new Error('Something went wrong...')
+      throw new Error('Something went wrong...' + err)
     }
     this.toggleRegister();
   }

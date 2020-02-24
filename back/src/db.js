@@ -221,7 +221,7 @@ const initializeDatabase = async () => {
     createRegistration,
     updateImage,
     deleteRegistration,
-    countRegistrations
+    // countRegistrations
   }
 
   return controller

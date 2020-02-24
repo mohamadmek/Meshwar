@@ -202,17 +202,11 @@ const storage = multer.diskStorage({
     console.log(req.body)
     try {
       let result = await controller.createRegistration({ name, age, mobile, email, event_id, address });
-      console.log(result.stmt)
       res.json({ success: true, result });
-      console.log(result.stmt)
     } catch (err) {
       next(err)
     }
 
-  })
-
-  app.use((err, req, res, next) => {
-    res.status(500).json({ success: false, message: err.message })
   })
 
   
