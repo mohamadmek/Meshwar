@@ -211,20 +211,21 @@ const storage = multer.diskStorage({
 
   })
 
+  app.get('/countreg', async(req, res, next) => {
+    try{
+      let result = await controller.countRegistrations()
+      res.json({success: true, result});
+    }catch(err){
+      next(err)
+    }
+  })
+
   app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: err.message })
   })
 
   
 
-      app.get('/countreg', async(req, res, next) => {
-        try{
-          let result = await controller.countRegistrations()
-          res.json({success: true, result});
-        }catch(err){
-          next(err)
-        }
-      })
 
 }
 

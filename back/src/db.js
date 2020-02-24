@@ -206,6 +206,18 @@ const initializeDatabase = async () => {
       throw new Error(err.message);
     }
   }
+  const countRegistrations =  async () => {
+    let query = "select count(registration_id) as reg from Registrations"
+    try{
+      let result = await db.all(query)
+      if(result.stmt.changes == 0){
+        throw new Error("query not working");
+      }
+      return result
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
 
 
   const controller = {
