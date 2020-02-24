@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/HomePage/HomePage';
-import Footer from './components/Footer/Footer';
-import EventsPage from './pages/EventsPage/EventsPage';
 import Events from './pages/EventsPage/EventsPage'
 import Gallery from './pages/GalleryPage/GalleryPage'
 import ContactPage from './pages/ContactUsPage/ContactUsPage'

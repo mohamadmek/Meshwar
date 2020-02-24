@@ -210,9 +210,16 @@ const initializeDatabase = async () => {
     let query = "select count(registration_id) as reg from Registrations"
     try{
       let result = await db.all(query)
-      if(result.stmt.changes == 0){
-        throw new Error("query not working");
-      }
+      return result
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  const sumReg =  async () => {
+    let query = "select SUM(Events.price) as reg from Events join Registrations ON Events.event_id = Registrations.event_id"
+    try{
+      let result = await db.all(query)
       return result
     } catch (err) {
       throw new Error(err.message);
@@ -233,7 +240,8 @@ const initializeDatabase = async () => {
     createRegistration,
     updateImage,
     deleteRegistration,
-    countRegistrations
+    countRegistrations,
+    sumReg,
   }
 
   return controller
