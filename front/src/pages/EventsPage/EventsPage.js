@@ -31,6 +31,7 @@ class EventsPage extends Component {
         { this.props.events &&
         events.map(event => {
             return <EventCard
+              getEvents={this.props.getEvents}
               id={event.event_id}
               title={event.title} 
               location={event.location}

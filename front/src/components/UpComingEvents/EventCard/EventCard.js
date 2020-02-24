@@ -15,7 +15,9 @@ class EventCard extends Component {
       email: "",
       address: ""
     },
-    success: true,
+    success: false,
+    error: false,
+    message: "",
     showMoreInfo: false,
     showRegister: false
   }
@@ -36,13 +38,24 @@ class EventCard extends Component {
         body: body
       });
       const result = await response.json();
+      console.log(result);
       if(result.success){
-        this.setState({registrations: result})
+        this.setState({
+          registrations: result,
+          success: true,
+          message: "Registered Successfully!"
+        })
+      } else if(!result.success) {
+        this.setState({
+          error: true,
+          message: result.message
+        })
       }
     } catch(err) {
       throw new Error('Something went wrong...' + err)
     }
     this.toggleRegister();
+    this.props.getEvents();
   }
 
   changeHandler = (e) => {
@@ -64,10 +77,10 @@ class EventCard extends Component {
 
   render() {
     const { src, title, description, remainingSeats, date, location, price } = this.props;
-    console.log("title", this.props.id)
     let moreInfo = null;
     let register = null;
-
+    let status = null;
+    let error = null;
 
     if (this.state.showMoreInfo) {
       moreInfo = (
@@ -112,9 +125,19 @@ class EventCard extends Component {
       )
     }
 
-    const status = (
-      <div class="EventCard_status" >Registered successfully!</div>
-    )
+
+    if(this.state.success) {
+      status = (
+        <div className="EventCard_status">{this.state.message} <span className="delete_status" onClick={() => { this.setState({success: !this.state.success}) }}>x</span></div>
+      )
+    }
+
+    if(this.state.error) {
+      error = (
+        <div className="EventCard_error">{this.state.message} <span class="delete_status" onClick={()=>{this.setState({error: !this.state.error})}}>x</span></div>
+      )
+    }
+
 
     return (
       <>
@@ -141,6 +164,7 @@ class EventCard extends Component {
             <Button onClick={this.toggleRegister}>Register</Button>
           </div>
           {status}
+          {error}
         </Article>
         {moreInfo}
         {register}

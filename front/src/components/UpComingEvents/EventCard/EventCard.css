@@ -117,6 +117,25 @@
   box-shadow: 0 4px 4px rgb(71, 156, 71);
 }
 
+.EventCard_error {
+  background: rgb(175, 3, 3);
+  color: #fff;
+  padding: 5px;
+  margin: 10px 0;
+  font-size: 0.9em;
+  text-align: center;
+  animation: fadeIn 1s linear;
+  box-shadow: 0 4px 4px rgb(175, 3, 3);
+}
+
+.delete_status {
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 1.1em;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0

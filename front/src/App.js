@@ -52,9 +52,6 @@ class App extends React.Component {
       this.getImages()
     }
 
-    componentWillReceiveProps(){
-      this.getEvents();
-    }	
     
   
   render() {
@@ -62,9 +59,9 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events} miniGallery={this.state.gallery}/>}/>
-            <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events} miniGallery={this.state.gallery}/>} />
-            <Route path="/events" render={(props) => <Events {...props} events={this.state.events} />}
+            <Route path="/" exact render={(props) => <Home {...props} events={this.state.events} getEvents={this.getEvents} miniGallery={this.state.gallery}/>}/>
+            <Route path="/home" exact render={(props) => <Home {...props} events={this.state.events} getEvents={this.getEvents} miniGallery={this.state.gallery}/>} />
+            <Route path="/events" render={(props) => <Events {...props} getEvents={this.getEvents} events={this.state.events} />}
             />
             <Route path="/gallery" render={(props) => <Gallery {...props} gallery={this.state.gallery}/>} />
             <Route path="/contact" component={ContactPage} />

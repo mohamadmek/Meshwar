@@ -8,10 +8,9 @@ import MiniGallery from '../../components/MiniGallery/MiniGallery'
 const HomePage = (props) => {
     return (
       <main className="wrapper">
-        {/* {console.log()} */}
         <Header />
         <Slider />
-        <EventSection events={props.events}/>
+        <EventSection events={props.events} getEvents={props.getEvents}/>
         <HowItWorks />
         <MiniGallery src={props.miniGallery}/>
         <Footer />
