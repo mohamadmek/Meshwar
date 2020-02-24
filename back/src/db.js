@@ -120,7 +120,7 @@ const initializeDatabase = async () => {
   const createImage = async (req) => {
     let stmt = `Insert into Pictures (type_id, name) values (1,'${req}')`
     try {
-      const result = await db.run(stmt
+      const result = await db.run(stmt)
       if(result.stmt.changes == 0){
         throw new Error("you must provide somethind")
       }
@@ -180,16 +180,25 @@ const initializeDatabase = async () => {
 
   const createRegistration = async (props) => {
     const { id, name, age, mobile, email, event_id, address } = props;
-    let query = `INSERT INTO 
-       Registrations ( full_name, age, email, address, event_id, mobile)
-       VALUES( '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}');`
+    try{
+      let query = `INSERT INTO 
+      Registrations ( full_name, age, email, address, event_id, mobile)
+      VALUES( '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}');`
+   let result = await db.run(query)
+   return result;
+    }catch(err){
+      throw new Error(err)
+    }
+  }
 
-    let result = await db.run(query, (err) => {
-      if (err) throw err;
-      console.log('Event Created Successfully!');
-    })
-
-    return result;
+  const countRegistrations = async () => {
+    let query = "select count(registration_id) as reg from Registrations"
+    try {
+      let result = await db.all(query)
+      return result
+    }catch(err){
+      throw new Error(err)
+    }
   }
 
 
@@ -205,7 +214,8 @@ const initializeDatabase = async () => {
     getRegistrations,
     createRegistration,
     updateImage,
-    deleteRegistration
+    deleteRegistration,
+    countRegistrations
   }
 
   return controller
