@@ -7,7 +7,6 @@ import EventSection from '../../components/UpComingEvents/EventSection/EventSect
 import MiniGallery from '../../components/MiniGallery/MiniGallery'
 const HomePage = (props) => {
     return (
-    
       <main className="wrapper">
         {/* {console.log()} */}
         <Header />

@@ -1,3 +1,8 @@
+.wrapper {
+  text-transform: capitalize;
+  color: #3b3b3b;
+}
+
 
 .EventCard_title {
   position: absolute;
@@ -7,6 +12,7 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
 .EventCard_image {
   position: relative;
   background: url('../../../assets/images/faraya.jpg')no-repeat center center/cover;
@@ -22,37 +28,26 @@
   left: 0;
   bottom: 0;
   position: absolute;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, .5);
   border-top-right-radius: 30px;
 }
 
 .EventCard_container {
-  color: #000000 ;
+  color: #000000;
   font-size: 0.8rem;
   margin-top: 15px;
   padding-left: 15px;
 }
 
 
-
-.EventCard_date {
-  margin-top: 10px;
-}
-
-.EventCard_calendar, .EventCard_users {
+.fa-map-marker,
+.fa-calendar,
+.fa-users,
+.fa-dollar {
   margin-right: 20px;
-}
-.EventCard_marker {
-  margin-right: 25px;
-}
-.EventCard_flex {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.EventCard_flex div:nth-child(2) {
-  margin-left: 8px;
+  margin-bottom: 10px;
+  display: inline-block;
+  width: 20px;
 }
 
 .EventCard_info {
@@ -109,4 +104,29 @@
   display: block;
   top: 15px;
   right: 15px;
+}
+
+.EventCard_status {
+  background: rgb(71, 156, 71);
+  color: #fff;
+  padding: 5px;
+  margin: 10px 0;
+  font-size: 0.9em;
+  text-align: center;
+  animation: fadeIn 1s linear;
+  box-shadow: 0 4px 4px rgb(71, 156, 71);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0
+  }
+
+  ;
+
+  to {
+    opacity: 1
+  }
+
+  ;
 }

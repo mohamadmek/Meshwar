@@ -65,15 +65,15 @@ const start = async () => {
     }
   })
 
-  app.post('/events',upload.single("image"), async (req, res, next) => {
-    let { location, date, title, price,  remaining_seats, description} = req.body;
+  app.post('/events', upload.single("image"), async (req, res, next) => {
+    let { location, date, title, price, remaining_seats, description } = req.body;
     let file = req.file.filename;
     const img_src = file
-    console.log(file)
-    try{
-      let result = await controller.createEvent({ location, date, title, price, img_src, remaining_seats, description});
-      res.json({success: true, result}); 
-    }catch(err){
+    console.log(req.body)
+    try {
+      let result = await controller.createEvent({ location, date, title, price, img_src, remaining_seats, description });
+      res.json({ success: true, result });
+    } catch (err) {
       next(err)
     }
   })
@@ -188,37 +188,48 @@ const start = async () => {
 
   })
 
-  app.delete('/deleteregistration/:id', async (req, res, next) => {
+  app.delete('/deleteregistration/:id', upload.none(), async (req, res, next) => {
     try {
-      let id = req.params;
-      console.log(id);
-      
-      app.get('/events/registrations', async (req, res, next) => {
-        try{
-          let result = await controller.getRegistrations();
-          res.json({success: true, result}); 
-        }catch(err){
-          next(err)
-        }
-          
-      })
-     
-      app.post('/events/addregistration', async (req, res, next) => {
-          let { id, name, age, mobile, email, event_id, address } = req.body;
-          try{
-            let result = await controller.createRegistration({id, name, age, mobile, email, event_id, address});
-            res.json({success: true, result}); 
-          }catch(err){
-            next(err)
-          }
-         
-      })
+      let {id} = req.params;
+      let {event_id} = req.body;
+      console.log(id)
+      console.log(req.body)
+      let result = await controller.deleteRegistration(id, event_id);
+      res.json({ success: true, result });
+    } catch (err) {
+      next(err)
+    }
+  })
 
-      app.use((err, req, res, next) => {
-        res.status(500).json({success: false, message: err.message})
-      })
+  app.get('/registrations', async (req, res, next) => {
+    try {
+      let result = await controller.getRegistrations();
+      res.json({ success: true, result });
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  app.post('/addregistration', upload.none(), async (req, res, next) => {
+    let { name, age, mobile, email, event_id, address } = req.body;
+    console.log(req.body)
+    try {
+      let result = await controller.createRegistration({ name, age, mobile, email, event_id, address });
+      console.log(result.stmt)
+      res.json({ success: true, result });
+      console.log(result.stmt)
+    } catch (err) {
+      next(err)
+    }
+
+  })
+
+  app.use((err, req, res, next) => {
+    res.status(500).json({ success: false, message: err.message })
+  })
 }
 
 
-app.listen(8080, () => console.log('server listening on port 8080'))
+app.listen(8080, () => console.log('server listening on port 8080'));
+
 start();

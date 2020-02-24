@@ -17,7 +17,8 @@ class App extends React.Component {
       error: ""
     }
   }
-  
+
+
   getEvents = async () => {
     try{
       const response = await fetch("http://localhost:8080/events");
@@ -50,7 +51,10 @@ class App extends React.Component {
       this.getEvents()
       this.getImages()
     }
-	
+
+    componentWillReceiveProps(){
+      this.getEvents();
+    }	
     
   
   render() {

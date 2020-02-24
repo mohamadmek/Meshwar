@@ -32,21 +32,23 @@ const initializeDatabase = async () => {
   }
 
   const createEvent = async (props) => {
-    const { location, date, title, price, img_src, remaining_seats, description} = props;
-    console.log(img_src)
+    const { location, date, title, price, img_src, remaining_seats, description } = props;
     let query = `INSERT INTO 
        Events( location, date, title, price, image_src, remaining_seats, description)
        VALUES('${location}', '${date}', '${title}', ${price}, '${img_src}', ${remaining_seats}, '${description}');`
-     
-    try{ 
-      console.log(query)
+
+    try {
+      // console.log(query)
       let result = await db.run(query)
+      console.log(result.stmt);
       if (result.stmt.changes == 0) {
         throw new Error("something missing")
       } else {
+        console.log('hello')
         let lastID = result.stmt.lastID;
-        let stmt = `INSERT INTO Pictures(event_id, type_id, name) VALUES(${lastID}, 2, '${image_src}')`
+        let stmt = `INSERT INTO Pictures(event_id, type_id, name) VALUES(${lastID}, 2, '${img_src}')`
         let res2 = await db.run(stmt)
+        console.log(res.stmt)
       }
     } catch (err) {
       throw new Error("could not add event")
@@ -56,10 +58,11 @@ const initializeDatabase = async () => {
     let stmt1 = `Delete from Pictures where event_id=${id}`
     let stmt2 = `Delete from Events where event_id=${id}`
     try {
-      const result = await db.run(stmt1);
+      const result = await db.run(stmt2);
       if (result.stmt.changes == 0) {
         throw new Error(`Events with id ${id} dosn't exist`)
-      } else {
+      }
+      else {
         const result2 = await db.run(stmt2);
       }
 
@@ -155,17 +158,22 @@ const initializeDatabase = async () => {
     }
   }
 
-  const deleteRegistration = async (id) => {
-    let stmt = `DELETE FROM Registrations WHERE registration_id=${id};`;
+  const deleteRegistration = async (id, event_id) => {
+    let stmt1 = `DELETE FROM Registrations WHERE registration_id=${id}`;
+    let stmt2 = `UPDATE Events SET remaining_seats = remaining_seats + 1 WHERE event_id = ${event_id}`
     try {
-      let result = await db.run(stmt);
-      console.log(stmt)
+      let result = await db.run(stmt1);
+      console.log(stmt1)
+      console.log(result);
       if (result.stmt.changes == 0) {
         throw new Error(`Registration with id: ${id} doesn't exist`);
+      } else {
+        let result2 = await db.run(stmt2);
+        console.log(stmt2);
       }
-      return true;
-    } catch(err) {
-      throw new Error(`Did not delete event with id:${id}`);
+      return true
+    } catch (err) {
+      throw new Error(`Did not delete registration with id:${id}`);
     }
   }
 
@@ -174,23 +182,29 @@ const initializeDatabase = async () => {
       let query = `SELECT * FROM registrations`;
       let result = await db.all(query);
       return result;
-    } catch(err){
+    } catch (err) {
       throw new Error(`Could not load registrations`);
     }
-}
+  }
 
   const createRegistration = async (props) => {
-    const { id, name, age, mobile, email, event_id, address } = props;
-    let query = `INSERT INTO 
+    const { name, age, mobile, email, event_id, address } = props;
+    let query1 = `INSERT INTO 
        Registrations ( full_name, age, email, address, event_id, mobile)
-       VALUES( '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}');`
-
-    let result = await db.run(query, (err) => {
-      if (err) throw err;
-      console.log('Event Created Successfully!');
-    })
-
-    return result;
+       VALUES( '${name}', '${age}', '${email}', '${address}', '${event_id}', '${mobile}')`;
+    let query2 = `UPDATE Events SET remaining_seats = remaining_seats - 1 WHERE event_id = ${event_id}`;
+    console.log(query2)
+    try {
+      let result = await db.run(query1);
+      if (result.stmt.changes == 0) {
+        throw new Error('Could not add registration')
+      } else {
+        let result2 = await db.run(query2);
+        console.log(result2);
+      }
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 
 

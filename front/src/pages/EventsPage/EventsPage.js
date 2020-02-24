@@ -6,18 +6,32 @@ import './EventsPage.css';
 
 
 class EventsPage extends Component {
+  state = {
+    search: ""
+  }
+
+  searchHandler = (e) => {
+    this.setState({search: e.target.value});
+  }
 
   render() {
-    console.log(this.props)
+    let events = this.props.events.filter(event => {
+      return event.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+    });
+
   return (
     <>
     <Header />
     <div className="eventsPage_wrapper">
       <h2 className="eventsPage_title">All Events</h2>
+      <div style={{textAlign:"center", padding: "10px"}}>
+        <input type="text" style={{marginTop: "30px"}} onChange={this.searchHandler} placeholder="Search event..."/>
+      </div>
       <section className="eventsPage_cards">
         { this.props.events &&
-        this.props.events.map(event => {
+        events.map(event => {
             return <EventCard
+              id={event.event_id}
               title={event.title} 
               location={event.location}
               date={event.date}
