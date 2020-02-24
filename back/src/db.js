@@ -125,7 +125,7 @@ const initializeDatabase = async () => {
     let stmt = `Insert into Pictures (type_id, name) values (1,'${req}')`
     try {
       const result = await db.run(stmt)
-      if (result.stmt.changes == 0) {
+      if(result.stmt.changes == 0){
         throw new Error("you must provide somethind")
       }
       return true;
@@ -134,8 +134,8 @@ const initializeDatabase = async () => {
     }
   }
   const getImages = async () => {
-    let stmt = `Select name from Pictures where type_id=1`
-    try {
+    let stmt = `Select name, picture_id from Pictures where type_id=1`
+    try{
       const result = await db.all(stmt)
       if (result.length == 0) {
         throw new Error("image not found")
@@ -220,7 +220,8 @@ const initializeDatabase = async () => {
     getRegistrations,
     createRegistration,
     updateImage,
-    deleteRegistration
+    deleteRegistration,
+    countRegistrations
   }
 
   return controller

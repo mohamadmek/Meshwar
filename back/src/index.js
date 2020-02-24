@@ -4,63 +4,64 @@ import { response } from 'express';
 import path from 'path';
 import nodemailer from 'nodemailer';
 const multer = require('multer');
-const start = async () => {
+const start = async() => {
   const controller = await initializeDatabase();
 
   //storage
-  const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../public/images'),
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + file.originalname)
-    }
-  })
-  //to get just images not other files
-  const fileFilter = (req, file, cb) => {
-    //reject a file: cb(null, false)
-    //accpet a file: cb(null, true)
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif') {
-      return cb(null, true)
-    } else {
-      return cb(null, false)
-    }
-  };
-  //to upload it
-  const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 },
-    fileFilter: fileFilter
-  })
+const storage = multer.diskStorage({
+  destination:path.join(__dirname, '../public/images'),
+  filename: function(req, file, cb) {
+    cb(null,Date.now()+file.originalname)
+  } 
+ })
+ //to get just images not other files
+ const fileFilter = (req, file, cb) => {
+   //reject a file: cb(null, false)
+   //accpet a file: cb(null, true)
+   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/gif'){
+    return cb(null, true)
+   } else {
+    return cb(null, false)
+   }
+ };
+ //to upload it
+ const upload = multer({
+   storage: storage,
+   limits: {fileSize: 1000000},
+   fileFilter: fileFilter
+ })
 
-  app.get('/', async (req, res, next) => {
-    try {
+  app.get('/', async (req, res, next)=>{
+    try{
       const result = await controller.getEvents();
-      res.json({ success: true, result });
-    } catch (err) {
+      res.json({success: true, result}); 
+    } catch(err){
+      next(err)
+     
+    }
+        
+  });
+  
+    app.get('/home', async (req, res, next) => {
+	const result = await controller.getEvents();
+	res.json(result);
+    })
+
+  app.get('/events', async (req, res, next)=>{
+    try{
+      const result = await controller.getEvents();
+      res.json({success: true, result});   
+    }catch(err){
       next(err)
     }
+ });
 
-  });
-
-  app.get('/home', async (req, res, next) => {
-    const result = await controller.getEvents();
-    res.json(result);
-  })
-
-  app.get('/events', async (req, res, next) => {
-    try {
-      const result = await controller.getEvents();
-      res.json({ success: true, result });
-    } catch (err) {
-      next(err)
-    }
-  });
-
-  app.get('/events/:id', async (req, res, next) => {
+  app.get('/events/:id', async(req, res, next) => {
     const id = req.params.id;
-    try {
+    try{
       const result = await controller.getEventById(id);
-      res.json({ success: true, result });
-    } catch (err) {
+      res.json({success: true, result}); 
+    }catch(err){
       next(err)
     }
   })
@@ -69,84 +70,70 @@ const start = async () => {
     let { location, date, title, price, remaining_seats, description } = req.body;
     let file = req.file.filename;
     const img_src = file
-    console.log(req.body)
-    try {
-      let result = await controller.createEvent({ location, date, title, price, img_src, remaining_seats, description });
-      res.json({ success: true, result });
-    } catch (err) {
+    try{
+      let result = await controller.createEvent({ location, date, title, price, img_src, remaining_seats, description});
+      res.json({success: true, result}); 
+    }catch(err){
       next(err)
-    }
-  })
+    } 
+})
 
-
-  app.delete('/events/:id', async (req, res, next) => {
-    const { id } = req.params;
-    try {
+  app.delete('/events/:id', async(req, res, next) =>{
+    const {id} = req.params;
+    try{
       const result = await controller.deleteEvent(id)
-      res.json({ success: true, result });
-    } catch (err) {
+      res.json({success: true, result}); 
+    }catch(err){
       next(err)
     }
-
+   
   });
-
-  app.put('/events/:id', upload.none(), async (req, res, next) => {
-    const { id } = req.params;
+  app.put('/events/:id', upload.none(), async(req, res, next) =>{
+    const{id} = req.params;
     let event = req.body;
-    try {
+    try{
       const result = await controller.updateEvent(id, event);
-      res.json({ success: true, result });
-    } catch (err) {
+      res.json({success: true, result}); 
+    }catch(err){
       next(err)
     }
   })
 
-  app.put('/events/updateImage:id', upload.single('image'), async (req, res, next) => {
-    const { id } = req.params;
-    let file = req.file.filename;
-    let image = file;
-    try {
-      const result = await controller.updateImage(id, image);
-      res.json({ success: true, result });
-    } catch (err) {
-      next(err);
-    }
-  })
+
 
   app.post('/upload', upload.single("image"), (req, res, next) => {
-    try {
+    try{
       const result = controller.createImage(req.file.filename);
-      res.json({ success: true, result });
-    } catch (err) {
+      res.json({success: true, result}); 
+    }catch(err){
       next(err)
     }
-
   })
-
+  
   app.get("/gallery", async (req, res, next) => {
-    try {
+    try{
       const result = await controller.getImages()
-      res.json({ success: true, result })
-    } catch (err) {
+      res.json({success: true, result})
+    }catch(err){
       console.log(err)
     }
   })
 
-  app.delete('/images/:id', async (req, res, next) => {
+  app.delete('/images/:id', async(req, res, next) => {
     const id = req.params.id;
-    try {
+    try{
       const result = await controller.deleteImage(id)
-      res.json({ success: true, result });
-    } catch (err) {
+      res.json({success: true, result}); 
+    }catch(err){
       next(err)
     }
-
+   
   })
 
 
-  app.post('/contact', async (req, res, next) => {
-    let data = req.body;
-    let output = `
+  app.post('/contact', async(req, res, next) => {
+	let data = req.body;	
+	let output = `
 	<p>Contact is trying to reach you</p>
 	<h3>Contact Details</h3>
 	<ul>
@@ -227,6 +214,18 @@ const start = async () => {
   app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: err.message })
   })
+
+  
+
+      app.get('/countreg', async(req, res, next) => {
+        try{
+          let result = await controller.countRegistrations()
+          res.json({success: true, result});
+        }catch(err){
+          next(err)
+        }
+      })
+
 }
 
 
