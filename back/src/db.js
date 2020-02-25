@@ -1,4 +1,7 @@
 import sqlite from 'sqlite'
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 /**
  * Create the table
 //    **/
@@ -62,10 +65,10 @@ const initializeDatabase = async () => {
       // const result3 = await db.run(stmt3);
       if (result.stmt.changes == 0) {
         throw new Error(`Events with id ${id} dosn't exist`)
-      // } else if (result3.stmt.changes == 0) {
-      //   throw new Error(`Events with id ${id} dosn't exist`)
-      // }
-      }else {
+        // } else if (result3.stmt.changes == 0) {
+        //   throw new Error(`Events with id ${id} dosn't exist`)
+        // }
+      } else {
         const result2 = await db.run(stmt2);
       }
 
@@ -143,6 +146,7 @@ const initializeDatabase = async () => {
       if (result.length == 0) {
         throw new Error("image not found")
       }
+      console.log(result)
       return result
     } catch (err) {
       throw new Error("image crashed")
@@ -216,7 +220,7 @@ const initializeDatabase = async () => {
   }
   const countRegistrations = async () => {
     let query = "select count(registration_id) as reg from Registrations"
-    try{
+    try {
       let result = await db.all(query)
       return result
     } catch (err) {
@@ -224,11 +228,57 @@ const initializeDatabase = async () => {
     }
   }
 
-  const sumReg =  async () => {
+  const sumReg = async () => {
     let query = "select SUM(Events.price) as reg from Events join Registrations ON Events.event_id = Registrations.event_id"
-    try{
+    try {
       let result = await db.all(query)
       return result
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  // AUTHENTICATION
+  const register = async (props) => {
+    let { name, email, password } = props;
+    let date = new Date;
+    let check = `SELECT * from Admin WHERE email = '${email}'`;
+    let query = `
+      INSERT INTO Admin(name, email, password, date)
+      VALUES ('${name}', '${email}', '${password}', '${date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay()}');
+    `;
+    try {
+      let check_result = await db.all(check);
+      console.log(check_result.length);
+
+      // Check if user already exists
+      if (check_result.length > 0) {
+        throw new Error('email already exists');
+      } else {
+        let result = await db.run(query);
+        console.log(result)
+        if (result.stmt.changes == 0) {
+          throw new Error(`Couldn't add Admin`);
+        }
+        return result;
+      }
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+
+  const validateLogin = async (props) => {
+    const { email, password } = props;
+    let query = `SELECT user_id as id, email, password from Admin WHERE email='${email}'`
+    try {
+      let result = await db.all(query);
+      const validPass = await bcrypt.compare(password, result[0].password);
+      const token = jwt.sign({id: result[0].id}, process.env.TOKEN_SECRET);
+      if(!validPass) {
+        throw new Error('Wrong Email/Pass combination')
+      } 
+      return token 
     } catch (err) {
       throw new Error(err.message);
     }
@@ -250,6 +300,8 @@ const initializeDatabase = async () => {
     deleteRegistration,
     countRegistrations,
     sumReg,
+    register,
+    validateLogin
   }
 
   return controller

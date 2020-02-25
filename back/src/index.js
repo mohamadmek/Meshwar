@@ -1,9 +1,15 @@
+const dotenv = require('dotenv');
 import app, { upload } from './app'
 import initializeDatabase from './db';
 import { response } from 'express';
 import path from 'path';
 import nodemailer from 'nodemailer';
 const multer = require('multer');
+const verify = require('./verifyToken');
+
+
+dotenv.config();
+console.log(process.env);
 const start = async() => {
   const controller = await initializeDatabase();
 
@@ -37,9 +43,7 @@ const storage = multer.diskStorage({
       res.json({success: true, result}); 
     } catch(err){
       next(err)
-     
     }
-        
   });
   
     app.get('/home', async (req, res, next) => {
@@ -47,7 +51,7 @@ const storage = multer.diskStorage({
 	res.json(result);
     })
 
-  app.get('/events', async (req, res, next)=>{
+  app.get('/events', verify, async (req, res, next)=>{
     try{
       const result = await controller.getEvents();
       res.json({success: true, result});   
@@ -115,7 +119,7 @@ const storage = multer.diskStorage({
       const result = await controller.getImages()
       res.json({success: true, result})
     }catch(err){
-      console.log(err)
+      next(err);
     }
   })
 

@@ -8,8 +8,7 @@ import favicon from 'serve-favicon' // serves favicon
 import cors from 'cors' // allows cross-domain requests
 import createError from 'http-errors' // better JS errors
 import path from 'path';
-const multer = require('multer');
-
+const authRoute = require('./auth');
 
 
 const app = express(); // create a new app
@@ -26,6 +25,7 @@ app.use(express.urlencoded({ extended: false })); // allows POST requests with G
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser()); // Parses cookies
 app.use(express.static(path.join(__dirname,'../public')));
+app.use('/api/user', authRoute)
 // app.use(session({ // handles sessions
 //   secret: 'keyboard cat', // <-- this should be a secret phrase
 //   cookie: { secure: IS_PRODUCTION }, // <-- secure only in production
