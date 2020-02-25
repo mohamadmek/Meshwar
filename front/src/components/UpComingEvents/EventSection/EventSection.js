@@ -16,6 +16,7 @@ const EventSection = (props) => {
             props.events.map((event, index) => {
             if(index <= 2) {
                return <EventCard
+                getEvents={props.getEvents}
                 id={event.event_id}
                 title={event.title} 
                 location={event.location}

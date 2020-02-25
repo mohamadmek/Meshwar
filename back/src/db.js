@@ -56,16 +56,16 @@ const initializeDatabase = async () => {
   const deleteEvent = async id => {
     let stmt1 = `Delete from Pictures where event_id=${id}`
     let stmt2 = `Delete from Events where event_id=${id}`
-    let stmt3 = `DELETE from Chart where event_id=${id}`;
+    // let stmt3 = `DELETE from Chart where event_id=${id}`;
     try {
       const result = await db.run(stmt1);
-      const result3 = await db.run(stmt3);
+      // const result3 = await db.run(stmt3);
       if (result.stmt.changes == 0) {
         throw new Error(`Events with id ${id} dosn't exist`)
-      } else if (result3.stmt.changes == 0) {
-        throw new Error(`Events with id ${id} dosn't exist`)
-      }
-      else {
+      // } else if (result3.stmt.changes == 0) {
+      //   throw new Error(`Events with id ${id} dosn't exist`)
+      // }
+      }else {
         const result2 = await db.run(stmt2);
       }
 
@@ -216,11 +216,18 @@ const initializeDatabase = async () => {
   }
   const countRegistrations = async () => {
     let query = "select count(registration_id) as reg from Registrations"
-    try {
-      let result = await db.all(query);
-      // if(result.stmt.changes == 0){
-      //   throw new Error("query not working");
-      // }
+    try{
+      let result = await db.all(query)
+      return result
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  const sumReg =  async () => {
+    let query = "select SUM(Events.price) as reg from Events join Registrations ON Events.event_id = Registrations.event_id"
+    try{
+      let result = await db.all(query)
       return result
     } catch (err) {
       throw new Error(err.message);
@@ -241,7 +248,8 @@ const initializeDatabase = async () => {
     createRegistration,
     updateImage,
     deleteRegistration,
-    countRegistrations
+    countRegistrations,
+    sumReg,
   }
 
   return controller
