@@ -41,7 +41,7 @@ const initializeDatabase = async () => {
        VALUES('${location}', '${date}', '${title}', ${price}, '${img_src}', ${remaining_seats}, '${description}');`
 
     try {
-      // console.log(query)
+      console.log(query)
       let result = await db.run(query)
       if (result.stmt.changes == 0) {
         throw new Error("something missing")

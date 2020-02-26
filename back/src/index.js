@@ -50,7 +50,7 @@ const storage = multer.diskStorage({
 	res.json(result);
     })
 
-  app.get('/events', verify, async (req, res, next)=>{
+  app.get('/events', async (req, res, next)=>{
     try{
       const result = await controller.getEvents();
       res.json({success: true, result});   
