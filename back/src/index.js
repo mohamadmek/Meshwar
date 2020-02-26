@@ -6,10 +6,9 @@ import path from 'path';
 import nodemailer from 'nodemailer';
 const multer = require('multer');
 const verify = require('./verifyToken');
-
-
 dotenv.config();
-console.log(process.env);
+
+
 const start = async() => {
   const controller = await initializeDatabase();
 
@@ -210,7 +209,6 @@ const storage = multer.diskStorage({
     } catch (err) {
       next(err)
     }
-
   })
 
   app.get('/countreg', async(req, res, next) => {
@@ -235,7 +233,6 @@ const storage = multer.diskStorage({
   })
 
 }
-
 
 app.listen(8080, () => console.log('server listening on port 8080'));
 
