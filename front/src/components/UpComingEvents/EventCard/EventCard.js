@@ -128,13 +128,13 @@ class EventCard extends Component {
 
     if(this.state.success) {
       status = (
-        <div className="EventCard_status">{this.state.message} <span className="delete_status" onClick={() => { this.setState({success: !this.state.success}) }}>x</span></div>
+        <div className="EventCard_status">{this.state.message} <span className="delete_status" onClick={() => { this.setState({success: !this.state.success}) }}>✖</span></div>
       )
     }
 
     if(this.state.error) {
       error = (
-        <div className="EventCard_error">{this.state.message} <span class="delete_status" onClick={()=>{this.setState({error: !this.state.error})}}>x</span></div>
+        <div className="EventCard_error">{this.state.message} <span class="delete_status" onClick={()=>{this.setState({error: !this.state.error})}}>✖</span></div>
       )
     }
 

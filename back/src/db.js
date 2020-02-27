@@ -274,12 +274,27 @@ const initializeDatabase = async () => {
     try {
       let result = await db.all(query);
       const validPass = await bcrypt.compare(password, result[0].password);
-      const token = jwt.sign({id: result[0].id}, process.env.TOKEN_SECRET);
-      if(!validPass) {
+      const token = jwt.sign({ id: result[0].id }, process.env.TOKEN_SECRET);
+      if (!validPass) {
         throw new Error('Wrong Email/Pass combination')
-      } 
-      return token 
+      }
+      return token
     } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  const eventsRevenue = async () => {
+    let query = `select Events.title, sum(Events.price) as sum from Events
+        join Registrations ON Events.event_id = Registrations.event_id
+        GROUP BY Events.title`;
+    try {
+      let result = await db.all(query);
+      if(!result) {
+        throw new Error('Couldn\'t fetch events');
+      }
+      return result
+    } catch(err){
       throw new Error(err.message);
     }
   }
@@ -301,7 +316,8 @@ const initializeDatabase = async () => {
     countRegistrations,
     sumReg,
     register,
-    validateLogin
+    validateLogin,
+    eventsRevenue
   }
 
   return controller
@@ -327,7 +343,5 @@ export default initializeDatabase;
 
 //    await db.run(`CREATE TABLE pictures_types (type_id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT);`);
 // }
-
 // export default {test};
-
 

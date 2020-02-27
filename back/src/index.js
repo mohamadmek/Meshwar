@@ -53,7 +53,8 @@ const storage = multer.diskStorage({
   app.get('/events', async (req, res, next)=>{
     try{
       const result = await controller.getEvents();
-      res.json({success: true, result});   
+      let data = await controller.eventsRevenue();
+      res.json({success: true, result, data});   
     }catch(err){
       next(err)
     }
@@ -204,7 +205,7 @@ const storage = multer.diskStorage({
     let { name, age, mobile, email, event_id, address } = req.body;
     try {
       let result = await controller.createRegistration({ name, age, mobile, email, event_id, address });
-      res.json({ success: true, result });
+      res.json({ success: true, result});
       console.log(result);
     } catch (err) {
       next(err)
