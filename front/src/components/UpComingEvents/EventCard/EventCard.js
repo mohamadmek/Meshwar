@@ -33,7 +33,7 @@ class EventCard extends Component {
       body.append('mobile', this.state.registration.mobile);
       body.append('address', this.state.registration.address);
       console.log(body)
-      const response = await fetch('http://localhost:8080/addregistration', {
+      const response = await fetch('/addregistration', {
         method: `POST`,
         body: body
       });

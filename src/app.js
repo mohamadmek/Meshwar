@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false })); // allows POST requests with GET-like parameters
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser()); // Parses cookies
-app.use(express.static(path.join(__dirname,'../public')));
+app.use(express.static(path.join(__dirname,'../front/build')));
 app.use('/api/user', authRoute)
 // app.use(session({ // handles sessions
 //   secret: 'keyboard cat', // <-- this should be a secret phrase

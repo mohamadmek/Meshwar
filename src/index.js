@@ -8,7 +8,7 @@ const multer = require('multer');
 const verify = require('./verifyToken');
 dotenv.config();
 
-
+const port = 5000;
 const start = async() => {
   const controller = await initializeDatabase();
 
@@ -235,6 +235,6 @@ const storage = multer.diskStorage({
 
 }
 
-app.listen(8080, () => console.log('server listening on port 8080'));
+app.listen(port, () => console.log('server listening on port 8080'));
 
 start();

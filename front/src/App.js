@@ -19,7 +19,7 @@ class App extends React.Component {
 
   getEvents = async () => {
     try{
-      const response = await fetch("http://localhost:8080/events");
+      const response = await fetch("/events");
       const result = await response.json();
       if(result.success){
         this.setState({events: [...result.result], error: ""})
@@ -33,7 +33,7 @@ class App extends React.Component {
   
   getImages = async () => {
     try{
-      const response = await fetch("http://localhost:8080/gallery")
+      const response = await fetch("/gallery")
       const result = await response.json();
       if(result.success){
         this.setState({gallery: [...result.result], error: ""})
