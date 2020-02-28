@@ -20,12 +20,18 @@ if (IS_PRODUCTION) {
 
 app.use(cors()); // allows cross domain requests
 app.use(express.json()); // allows POST requests with JSON
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false })); // allows POST requests with GET-like parameters
-app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser()); // Parses cookies
-app.use(express.static(path.join(__dirname,'../front/build')));
 app.use('/api/user', authRoute)
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));// Handle React routing, return all requests to React app
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 // app.use(session({ // handles sessions
 //   secret: 'keyboard cat', // <-- this should be a secret phrase
 //   cookie: { secure: IS_PRODUCTION }, // <-- secure only in production
