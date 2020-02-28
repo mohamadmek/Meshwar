@@ -143,7 +143,7 @@ class EventCard extends Component {
       <>
         <Article className="EventSection_m_mt10">
           <div style={{
-            background: `url('http://localhost:8080/images/${src}') no-repeat center center/cover`,
+            background: `url('/images/${src}') no-repeat center center/cover`,
             position: "relative",
             width: "100%",
             height: "200px",
